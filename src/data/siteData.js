@@ -6,13 +6,13 @@ export const SITE = {
   tagline: 'Where Tradition Meets Expression',
   founder: 'Guru Pravalika Kuppili',
   phone: '7330677471',
-  email: 'itsluckycharms08@gmail.com',
+  email: 'pravalikakuppili08@gmail.com',
   address: {
-    flat: 'Flat No 68, Sixth Floor',
-    building: 'Genious Elite',
-    locality: 'Southern Block Raidurg Navkhalsa Village',
-    landmark: 'Near Malkam Cheruvu',
-    mandal: 'Serilingampally Mandal',
+    flat: 'FLAT NO 68, SIXTH FLOOR',
+    building: 'GENIOUS ELITE',
+    locality: 'SOUTHERN BLOCK RAIDURG NAVKHALSA VILLAGE',
+    landmark: 'NEAR MALKAM CHERUVU',
+    mandal: 'SERILINGAMPALLY MANDAL',
     vtc: 'Raidurg NowKhalsa',
     po: 'Gachibowli',
     district: 'K.V. Rangareddy',
@@ -23,8 +23,7 @@ export const SITE = {
 };
 
 export const NAV_LINKS = [
-  { label: 'Home',    path: '/' },
-  { label: 'About',   path: '/about' },
+  { label: 'Home', path: '/' },
   { label: 'History', path: '/history' },
   { label: 'Courses', path: '/courses' },
   { label: 'Gallery', path: '/gallery' },
@@ -56,8 +55,8 @@ export const WHY_CHOOSE = [
 
 export const COUNTERS = [
   { value: 200, suffix: '+', label: 'Students Trained' },
-  { value: 15,  suffix: '+', label: 'Years of Excellence' },
-  { value: 50,  suffix: '+', label: 'Stage Performances' },
+  { value: 15, suffix: '+', label: 'Years of Excellence' },
+  { value: 50, suffix: '+', label: 'Stage Performances' },
   { value: 100, suffix: '%', label: 'Student Satisfaction' },
 ];
 

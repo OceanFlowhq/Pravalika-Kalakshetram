@@ -5,45 +5,48 @@ import { FaTimes, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import SectionHeading from '../components/SectionHeading';
 import FloatingParticles from '../components/FloatingParticles';
 
-const CATEGORIES = ['All', 'Performances', 'Practice Sessions', 'Events', 'Workshops'];
+// Import all 17 images from assets
+import img1 from '../assets/img1.jpeg';
+import img2 from '../assets/img2.jpeg';
+import img3 from '../assets/img3.jpeg';
+import img4 from '../assets/img4.jpeg';
+import img5 from '../assets/img5.jpeg';
+import img6 from '../assets/img6.jpeg';
+import img7 from '../assets/img7.jpeg';
+import img8 from '../assets/img8.jpeg';
+import img9 from '../assets/img9.jpeg';
+import img10 from '../assets/img10.jpeg';
+import img11 from '../assets/img11.jpeg';
+import img12 from '../assets/img12.jpeg';
+import img13 from '../assets/img13.jpeg';
+import img14 from '../assets/img14.jpeg';
+import img15 from '../assets/img15.jpeg';
+import img16 from '../assets/img16.jpeg';
+import img17 from '../assets/img17.jpeg';
 
-// Gallery items using the uploaded images as placeholders
+// Gallery items using the newly uploaded images
 const GALLERY_ITEMS = [
-  { id: 1, category: 'Performances', src: '/dancer-hero.jpg', alt: 'Kuchipudi Solo Performance', size: 'tall' },
-  { id: 2, category: 'Performances', src: '/performance1.jpg', alt: 'Classical Stage Presentation', size: 'normal' },
-  { id: 3, category: 'Practice Sessions', src: '/performance2.jpg', alt: 'Practice Rehearsal', size: 'normal' },
-  { id: 4, category: 'Events', src: '/dancer2.jpg', alt: 'Annual Cultural Event', size: 'wide' },
-  { id: 5, category: 'Workshops', src: '/dancer3.jpg', alt: 'Classical Dance Workshop', size: 'normal' },
-  { id: 6, category: 'Performances', src: '/dancer4.jpg', alt: 'Arangetram Performance', size: 'tall' },
-  { id: 7, category: 'Events', src: '/dancer-hero.jpg', alt: 'Festival Performance', size: 'normal' },
-  { id: 8, category: 'Practice Sessions', src: '/performance1.jpg', alt: 'Training Session', size: 'normal' },
-  { id: 9, category: 'Workshops', src: '/performance2.jpg', alt: 'Abhinaya Workshop', size: 'wide' },
-  { id: 10, category: 'Performances', src: '/dancer2.jpg', alt: 'Grand Performance', size: 'normal' },
-  { id: 11, category: 'Events', src: '/dancer3.jpg', alt: 'Cultural Festival', size: 'normal' },
-  { id: 12, category: 'Performances', src: '/dancer4.jpg', alt: 'Stage Choreography', size: 'tall' },
+  { id: 1, src: img1, alt: 'Kuchipudi Solo Performance' },
+  { id: 2, src: img2, alt: 'Classical Stage Presentation' },
+  { id: 3, src: img3, alt: 'Practice Rehearsal' },
+  { id: 4, src: img4, alt: 'Annual Cultural Event' },
+  { id: 5, src: img5, alt: 'Classical Dance Workshop' },
+  { id: 6, src: img6, alt: 'Arangetram Performance' },
+  { id: 7, src: img7, alt: 'Festival Performance' },
+  { id: 8, src: img8, alt: 'Training Session' },
+  { id: 9, src: img9, alt: 'Abhinaya Workshop' },
+  { id: 10, src: img10, alt: 'Grand Performance' },
+  { id: 11, src: img11, alt: 'Cultural Festival' },
+  { id: 12, src: img12, alt: 'Stage Choreography' },
+  { id: 13, src: img13, alt: 'Technical Practice' },
+  { id: 14, src: img14, alt: 'Masterclass' },
+  { id: 15, src: img15, alt: 'Annual Meet' },
+  { id: 16, src: img16, alt: 'Solo Act' },
+  { id: 17, src: img17, alt: 'Classical Rendition' },
 ];
 
-// Gold gradient placeholder by category
-const CAT_COLORS = {
-  'Performances':       'linear-gradient(135deg, #1A1A1A 0%, #2D1A00 100%)',
-  'Practice Sessions':  'linear-gradient(135deg, #1A1A1A 0%, #0D1A2D 100%)',
-  'Events':             'linear-gradient(135deg, #2D1A00 0%, #1A1A1A 100%)',
-  'Workshops':          'linear-gradient(135deg, #0D1A2D 0%, #1A1A1A 100%)',
-};
-const CAT_ICONS = {
-  'Performances': '🎭',
-  'Practice Sessions': '🪔',
-  'Events': '⭐',
-  'Workshops': '📿',
-};
-
 export default function Gallery() {
-  const [activeCategory, setActiveCategory] = useState('All');
   const [lightboxIndex, setLightboxIndex] = useState(null);
-
-  const filtered = activeCategory === 'All'
-    ? GALLERY_ITEMS
-    : GALLERY_ITEMS.filter(item => item.category === activeCategory);
 
   const openLightbox = (index) => {
     setLightboxIndex(index);
@@ -53,8 +56,8 @@ export default function Gallery() {
     setLightboxIndex(null);
     document.body.style.overflow = '';
   };
-  const prev = () => setLightboxIndex((i) => (i - 1 + filtered.length) % filtered.length);
-  const next = () => setLightboxIndex((i) => (i + 1) % filtered.length);
+  const prev = () => setLightboxIndex((i) => (i - 1 + GALLERY_ITEMS.length) % GALLERY_ITEMS.length);
+  const next = () => setLightboxIndex((i) => (i + 1) % GALLERY_ITEMS.length);
 
   return (
     <>
@@ -92,45 +95,42 @@ export default function Gallery() {
       {/* Gallery */}
       <section style={{ padding: '5rem 0 7rem', background: '#FFFFFF' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 2rem' }}>
-          {/* Category filters */}
-          <div style={{
-            display: 'flex', gap: '0.75rem', flexWrap: 'wrap',
-            justifyContent: 'center', marginBottom: '3rem',
-          }}>
-            {CATEGORIES.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                style={{
-                  padding: '0.6rem 1.5rem',
-                  fontFamily: 'var(--font-cinzel)',
-                  fontSize: '0.65rem',
-                  letterSpacing: '0.15em',
-                  textTransform: 'uppercase',
-                  border: activeCategory === cat ? '1px solid var(--gold)' : '1px solid rgba(212,160,23,0.2)',
-                  background: activeCategory === cat
-                    ? 'linear-gradient(135deg, #D4A017, #E8C547)'
-                    : 'transparent',
-                  color: activeCategory === cat ? '#fff' : 'var(--secondary)',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                }}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
+          
+          {/* Custom Masonry CSS */}
+          <style>{`
+            .luxury-masonry {
+              column-count: 3;
+              column-gap: 1.5rem;
+              width: 100%;
+            }
+            .luxury-masonry-item {
+              break-inside: avoid;
+              margin-bottom: 1.5rem;
+              position: relative;
+              overflow: hidden;
+              display: block;
+              border-radius: 2px;
+            }
+            @media (max-width: 1024px) {
+              .luxury-masonry { column-count: 2; column-gap: 1rem; }
+              .luxury-masonry-item { margin-bottom: 1rem; }
+            }
+            @media (max-width: 640px) {
+              .luxury-masonry { column-count: 1; column-gap: 1rem; }
+              .luxury-masonry-item { margin-bottom: 1rem; }
+            }
+          `}</style>
 
           {/* Masonry grid */}
           <motion.div
-            className="masonry-grid"
+            className="luxury-masonry"
             layout
           >
             <AnimatePresence>
-              {filtered.map((item, i) => (
+              {GALLERY_ITEMS.map((item, i) => (
                 <motion.div
                   key={item.id}
-                  className="masonry-item"
+                  className="luxury-masonry-item"
                   layout
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -141,7 +141,7 @@ export default function Gallery() {
                   whileHover="hover"
                 >
                   <div style={{
-                    background: CAT_COLORS[item.category] || '#1A1A1A',
+                    background: '#1A1A1A',
                     overflow: 'hidden',
                     position: 'relative',
                   }}>
@@ -150,45 +150,31 @@ export default function Gallery() {
                       alt={item.alt}
                       style={{
                         width: '100%',
-                        height: item.size === 'tall' ? '380px' : item.size === 'wide' ? '220px' : '280px',
+                        height: 'auto',
                         objectFit: 'cover',
                         display: 'block',
-                        transition: 'transform 0.5s ease',
+                        transition: 'transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
                       }}
                       onError={e => {
                         e.target.style.display = 'none';
-                        const h = item.size === 'tall' ? '380px' : item.size === 'wide' ? '220px' : '280px';
-                        e.target.parentElement.style.height = h;
-                        e.target.parentElement.style.display = 'flex';
-                        e.target.parentElement.style.alignItems = 'center';
-                        e.target.parentElement.style.justifyContent = 'center';
-                        e.target.parentElement.style.flexDirection = 'column';
-                        e.target.parentElement.style.gap = '0.5rem';
-                        e.target.parentElement.innerHTML += `
-                          <div style="font-size:3rem">${CAT_ICONS[item.category] || '🎭'}</div>
-                          <p style="font-family:var(--font-cinzel);color:#D4A017;font-size:0.6rem;letter-spacing:0.15em;text-align:center;">${item.category}</p>
-                        `;
                       }}
-                      onMouseEnter={e => e.target.style.transform = 'scale(1.06)'}
+                      onMouseEnter={e => e.target.style.transform = 'scale(1.04)'}
                       onMouseLeave={e => e.target.style.transform = 'scale(1)'}
                     />
                     {/* Hover overlay */}
                     <div style={{
                       position: 'absolute', inset: 0,
-                      background: 'linear-gradient(to top, rgba(212,160,23,0.4) 0%, transparent 60%)',
+                      background: 'linear-gradient(to top, rgba(26,26,26,0.5) 0%, transparent 60%)',
                       opacity: 0,
                       transition: 'opacity 0.4s ease',
                       display: 'flex', alignItems: 'flex-end',
-                      padding: '1.25rem',
+                      padding: '1.5rem',
                     }}
                       onMouseEnter={e => e.currentTarget.style.opacity = '1'}
                       onMouseLeave={e => e.currentTarget.style.opacity = '0'}
                     >
                       <div>
-                        <p style={{ fontFamily: 'var(--font-cinzel)', fontSize: '0.55rem', color: 'rgba(255,255,255,0.7)', letterSpacing: '0.15em', textTransform: 'uppercase' }}>
-                          {item.category}
-                        </p>
-                        <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.8rem', color: '#fff', marginTop: '0.25rem' }}>{item.alt}</p>
+                        <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.85rem', color: '#fff', letterSpacing: '0.05em' }}>{item.alt}</p>
                       </div>
                     </div>
                   </div>
@@ -271,26 +257,25 @@ export default function Gallery() {
               style={{ maxWidth: '900px', maxHeight: '80vh', position: 'relative' }}
             >
               <img
-                src={filtered[lightboxIndex]?.src}
-                alt={filtered[lightboxIndex]?.alt}
+                src={GALLERY_ITEMS[lightboxIndex]?.src}
+                alt={GALLERY_ITEMS[lightboxIndex]?.alt}
                 style={{
-                  maxWidth: '100%', maxHeight: '80vh',
+                  maxWidth: '100%', maxHeight: '85vh',
                   objectFit: 'contain',
                   display: 'block',
-                  border: '1px solid rgba(212,160,23,0.2)',
+                  border: '1px solid rgba(212,160,23,0.15)',
+                  boxShadow: '0 10px 40px rgba(0,0,0,0.5)',
                 }}
                 onError={e => {
                   e.target.style.display = 'none';
-                  e.target.parentElement.style.cssText = 'width:400px;height:400px;display:flex;align-items:center;justify-content:center;background:#1A1A1A;';
-                  e.target.parentElement.innerHTML += `<div style="font-size:6rem;text-align:center;">🎭</div>`;
                 }}
               />
               <div style={{
-                position: 'absolute', bottom: '-3rem', left: 0, right: 0,
+                position: 'absolute', bottom: '-2.5rem', left: 0, right: 0,
                 textAlign: 'center',
               }}>
-                <p style={{ fontFamily: 'var(--font-cinzel)', fontSize: '0.6rem', color: '#D4A017', letterSpacing: '0.15em' }}>
-                  {filtered[lightboxIndex]?.category} — {lightboxIndex + 1} / {filtered.length}
+                <p style={{ fontFamily: 'var(--font-cinzel)', fontSize: '0.65rem', color: 'rgba(255,255,255,0.7)', letterSpacing: '0.15em' }}>
+                  {lightboxIndex + 1} / {GALLERY_ITEMS.length}
                 </p>
               </div>
             </motion.div>

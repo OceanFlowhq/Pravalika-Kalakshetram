@@ -2,7 +2,6 @@
 import { Routes, Route } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import Home    from './pages/Home';
-import About   from './pages/About';
 import History from './pages/History';
 import Courses from './pages/Courses';
 import Gallery from './pages/Gallery';
@@ -13,7 +12,6 @@ export default function App() {
     <MainLayout>
       <Routes>
         <Route path="/"        element={<Home />} />
-        <Route path="/about"   element={<About />} />
         <Route path="/history" element={<History />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/gallery" element={<Gallery />} />

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaInstagram, FaFacebookF } from 'react-icons/fa';
 import { SITE, NAV_LINKS } from '../data/siteData';
+import logoImg from '../assets/logo.png';
 
 export default function Footer() {
   return (
@@ -36,14 +37,14 @@ export default function Footer() {
       }}>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))',
           gap: '3rem',
           marginBottom: '4rem',
         }}>
           {/* Brand Column */}
-          <div>
-            <div style={{ marginBottom: '1.5rem', width: '100%' }}>
-              <img src="src/assets/logo.png" alt="Pravalika Kuchipudi Kalakshetram Logo" style={{ height: '130px', width: '320px', objectFit: 'contain', objectPosition: 'left center', display: 'block', filter: 'brightness(0) invert(1)' }} />
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }} className="footer-brand-col">
+            <div style={{ marginBottom: '1.5rem', width: '100%', maxWidth: '280px' }} className="footer-logo-wrapper">
+              <img src={logoImg} alt="Pravalika Kuchipudi Kalakshetram Logo" style={{ width: '100%', height: 'auto', maxHeight: '110px', objectFit: 'contain', objectPosition: 'left center', display: 'block', filter: 'brightness(0) invert(1)' }} className="footer-logo-img" />
             </div>
             <p style={{
               fontFamily: 'var(--font-body)',
@@ -193,8 +194,11 @@ export default function Footer() {
               }}>
                 <FaMapMarkerAlt style={{ marginTop: '3px', color: '#D4A017', flexShrink: 0 }} />
                 <span>
-                  Flat No 68, Genious Elite,<br />
-                  Raidurg, Gachibowli,<br />
+                  FLAT NO 68, SIXTH FLOOR,<br />
+                  GENIOUS ELITE, SOUTHERN BLOCK<br />
+                  RAIDURG NAVKHALSA VILLAGE,<br />
+                  NEAR MALKAM CHERUVU,<br />
+                  SERILINGAMPALLY MANDAL,<br />
                   Telangana — 500032
                 </span>
               </div>
@@ -229,6 +233,13 @@ export default function Footer() {
           </p>
         </div>
       </div>
+      <style>{`
+        @media (max-width: 640px) {
+          .footer-brand-col { align-items: center !important; text-align: center; }
+          .footer-logo-wrapper { display: flex; justify-content: center; }
+          .footer-logo-img { object-position: center !important; }
+        }
+      `}</style>
     </footer>
   );
 }

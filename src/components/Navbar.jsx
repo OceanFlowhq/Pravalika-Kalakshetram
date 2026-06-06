@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { HiMenuAlt3, HiX } from 'react-icons/hi';
 import { useScrolled } from '../hooks/useScrolled';
 import { NAV_LINKS } from '../data/siteData';
+import logoImg from '../assets/logo.png';
 
 export default function Navbar() {
   const scrolled = useScrolled(60);
@@ -52,8 +53,8 @@ export default function Navbar() {
           transition: 'height 0.4s ease',
         }}>
           {/* Logo */}
-          <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', marginRight: '3rem', flexShrink: 0 }}>
-            <img src="src/assets/logo.png" alt="Pravalika Kuchipudi Kalakshetram Logo" style={{ height: '120px', width: 'auto', maxWidth: '280px', objectFit: 'contain', display: 'block', mixBlendMode: 'multiply' }} />
+          <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', marginRight: 'auto', marginLeft: '20px', flexShrink: 0, height: '100%', padding: '0.4rem 0' }}>
+            <img src={logoImg} alt="Pravalika Kuchipudi Kalakshetram Logo" className="nav-logo" style={{ width: 'auto', objectFit: 'contain', display: 'block', mixBlendMode: 'multiply', transform: 'scale(1.91)' }} />
           </Link>
 
           {/* Desktop Nav */}
@@ -100,14 +101,17 @@ export default function Navbar() {
             onClick={toggleMenu}
             style={{
               display: 'none',
-              background: 'none',
-              border: 'none',
+              background: 'rgba(212,160,23,0.08)',
+              border: '1px solid rgba(212,160,23,0.25)',
+              borderRadius: '4px',
               cursor: 'pointer',
-              color: 'var(--dark)',
-              fontSize: '1.5rem',
-              padding: '0.25rem',
+              color: 'var(--gold)',
+              fontSize: '1.6rem',
+              padding: '0.45rem',
+              marginLeft: '1rem',
+              transition: 'all 0.3s ease',
             }}
-            className="show-mobile"
+            className="show-mobile hamburger-btn"
             aria-label="Toggle menu"
           >
             {menuOpen ? <HiX /> : <HiMenuAlt3 />}
@@ -185,7 +189,7 @@ export default function Navbar() {
                     letterSpacing: '0.08em',
                     textDecoration: 'none',
                     color: isActive ? 'var(--gold)' : 'var(--dark)',
-                    padding: '0.875rem 0',
+                    padding: '1rem 0',
                     borderBottom: '1px solid rgba(212,160,23,0.1)',
                     transition: 'color 0.3s ease',
                   })}
@@ -229,12 +233,12 @@ export default function Navbar() {
       </AnimatePresence>
 
       <style>{`
+        .nav-logo { max-height: 56px; }
+        .hamburger-btn:active { transform: scale(0.95); }
         @media (max-width: 900px) {
           .hidden-mobile { display: none !important; }
-          .show-mobile   { display: block !important; }
-        }
-        @media (min-width: 901px) {
-          .show-mobile { display: none !important; }
+          .show-mobile { display: flex !important; align-items: center; justify-content: center; }
+          .nav-logo { max-height: 44px; }
         }
       `}</style>
     </>

@@ -60,7 +60,7 @@ export default function Contact() {
         <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 2rem' }}>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
             gap: '5rem',
           }}>
             {/* Contact Info */}
@@ -343,7 +343,7 @@ export default function Contact() {
           >
             <iframe
               title="Pravalika Kuchipudi Kalakshetram Location"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3805.900995605559!2d78.47661787467085!3d17.464452100581443!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb97eb36e67bff%3A0x73193a386776c2d7!2sGenious%20Elite!5e0!3m2!1sen!2sin!4v1780670750980!5m2!1sen!2sin"
+              src="https://maps.google.com/maps?q=Genious%20Elite,%20Near%20Malkam%20Cheruvu,%20Raidurg,%20Gachibowli,%20Telangana%20500032&t=&z=16&ie=UTF8&iwloc=&output=embed"
               width="100%"
               height="450"
               style={{ border: 0, display: 'block' }}

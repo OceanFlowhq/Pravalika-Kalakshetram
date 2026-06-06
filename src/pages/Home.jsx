@@ -1,5 +1,5 @@
 // src/pages/Home.jsx
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -13,6 +13,8 @@ import { useCounter } from '../hooks/useCounter';
 import FloatingParticles from '../components/FloatingParticles';
 import SectionHeading from '../components/SectionHeading';
 
+import heroVideoSrc from '../assets/dance1.mp4';
+
 // ─── Hero storytelling steps ─────────────────────────────────────────────────
 const STORY_STEPS = [
   { text: 'Discover the elegance of authentic Kuchipudi.', note: 'Classical artistry from its ancient roots.' },
@@ -24,132 +26,131 @@ const STORY_STEPS = [
 // ─── Hero Section ────────────────────────────────────────────────────────────
 function HeroSection() {
   const outerRef = useRef(null);
+  const progressRef = useRef(null);
+  const storyTextsRef = useRef([]);    // array of story text DOM nodes
+  const storyDotsRef = useRef([]);     // array of step dot DOM nodes
+  const storyLabelRef = useRef(null);  // "01 / 04" counter label
+
+  // Video scrubbing refs
   const videoRef = useRef(null);
   const targetTimeRef = useRef(0);
   const currentTimeRef = useRef(0);
   const rafRef = useRef(null);
-  const progressRef = useRef(null);
-  const storyTextsRef = useRef([]);    // array of story text DOM nodes
-  const storyDotsRef = useRef([]);    // array of step dot DOM nodes
-  const storyLabelRef = useRef(null);  // "01 / 04" counter label
-  const prevStepRef = useRef(-1);    // last active step index
 
-  // ── Pure window scroll → video scrub ──────────────────────────────────────
-  // Uses window.scrollY + el.offsetTop instead of useScroll so this component
-  // is completely immune to AnimatePresence's page-entry y-offset, which was
-  // corrupting progress values and causing the "duplicate content" appearance.
+  // ── Pure window scroll → Text scrub & Video Time ────────────────────────────────
   useEffect(() => {
+    let ticking = false;
+
     const onScroll = () => {
-      const el = outerRef.current;
-      if (!el) return;
-      const total = el.offsetHeight - window.innerHeight;
-      const scrolled = Math.max(0, window.scrollY - el.offsetTop);
-      const progress = Math.min(1, scrolled / total);
-
-      const video = videoRef.current;
-      if (video && video.duration && isFinite(video.duration)) {
-        targetTimeRef.current = progress * video.duration;
-      }
-
-      // Update progress bar directly via DOM — zero React re-renders
-      if (progressRef.current) {
-        progressRef.current.style.width = `${progress * 100}%`;
-      }
-
-      // ── Storytelling panel: update step text + dots via DOM ──
-      const numSteps = STORY_STEPS.length;
-      const stepIndex = Math.min(numSteps - 1, Math.floor(progress * numSteps));
-
-      if (stepIndex !== prevStepRef.current) {
-        prevStepRef.current = stepIndex;
-
-        // Fade story text blocks in/out
-        storyTextsRef.current.forEach((el, i) => {
-          if (!el) return;
-          if (i === stepIndex) {
-            el.style.opacity = '1';
-            el.style.transform = 'translateY(0px)';
-          } else if (i < stepIndex) {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(-10px)';
-          } else {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(10px)';
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const el = outerRef.current;
+          if (!el) {
+            ticking = false;
+            return;
           }
-        });
+          const total = el.offsetHeight - window.innerHeight;
+          const scrolled = Math.max(0, window.scrollY - el.offsetTop);
+          
+          // Map 0 -> 1 over the first 85% of scroll, hold for the last 15%
+          const scrollRatio = Math.max(0, Math.min(1, scrolled / total));
+          const animationProgress = Math.min(1, scrollRatio / 0.85);
 
-        // Animate step dots
-        storyDotsRef.current.forEach((dot, i) => {
-          if (!dot) return;
-          if (i === stepIndex) {
-            dot.style.background = 'linear-gradient(135deg, #D4A017, #E8C547)';
-            dot.style.transform = 'scale(1.55)';
-            dot.style.boxShadow = '0 0 8px rgba(212,160,23,0.55)';
-          } else if (i < stepIndex) {
-            dot.style.background = 'rgba(212,160,23,0.45)';
-            dot.style.transform = 'scale(1)';
-            dot.style.boxShadow = 'none';
-          } else {
-            dot.style.background = 'rgba(212,160,23,0.14)';
-            dot.style.transform = 'scale(1)';
-            dot.style.boxShadow = 'none';
+          // Update progress bar
+          if (progressRef.current) {
+            progressRef.current.style.width = `${animationProgress * 100}%`;
           }
-        });
 
-        // Update counter label
-        if (storyLabelRef.current) {
-          storyLabelRef.current.textContent =
-            `${String(stepIndex + 1).padStart(2, '0')} / ${String(numSteps).padStart(2, '0')}`;
-        }
+          // Update video target time
+          const video = videoRef.current;
+          if (video && video.duration && isFinite(video.duration)) {
+             targetTimeRef.current = animationProgress * video.duration;
+          }
+
+          const numSteps = STORY_STEPS.length;
+          
+          // ── Storytelling panel: update step text + dots ──
+          const stepIndexRaw = animationProgress * (numSteps - 1);
+          const stepIndex = Math.min(numSteps - 1, Math.round(stepIndexRaw));
+
+          storyTextsRef.current.forEach((textEl, i) => {
+            if (!textEl) return;
+            // Smooth vertical parallax and fade for text
+            const diff = stepIndexRaw - i; // distance from center (0 = perfectly active)
+            const opacity = Math.max(0, 1 - Math.abs(diff) * 1.5);
+            const translateY = diff * 20; // moves up when scrolled past, down when coming up
+            
+            textEl.style.opacity = opacity;
+            textEl.style.transform = `translateY(${translateY}px)`;
+            textEl.style.pointerEvents = opacity > 0.5 ? 'auto' : 'none';
+          });
+
+          // Animate step dots
+          storyDotsRef.current.forEach((dot, i) => {
+            if (!dot) return;
+            if (i === stepIndex) {
+              dot.style.background = 'linear-gradient(135deg, #D4A017, #E8C547)';
+              dot.style.transform = 'scale(1.55)';
+              dot.style.boxShadow = '0 0 8px rgba(212,160,23,0.55)';
+            } else if (i < stepIndex) {
+              dot.style.background = 'rgba(212,160,23,0.45)';
+              dot.style.transform = 'scale(1)';
+              dot.style.boxShadow = 'none';
+            } else {
+              dot.style.background = 'rgba(212,160,23,0.14)';
+              dot.style.transform = 'scale(1)';
+              dot.style.boxShadow = 'none';
+            }
+          });
+
+          // Update counter label
+          if (storyLabelRef.current) {
+            storyLabelRef.current.textContent =
+              `${String(stepIndex + 1).padStart(2, '0')} / ${String(numSteps).padStart(2, '0')}`;
+          }
+
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll(); // sync immediately in case page loaded mid-scroll
+    onScroll(); // sync immediately
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // ── RAF lerp loop: smoothly chases targetTime at 60fps ────────────────────
-  // The video's currentTime is lerped toward the scroll-set target each frame,
-  // creating perfectly smooth, reversible, continuous motion.
+  // ── RAF loop: seamlessly lerp video to targetTime ──
   useEffect(() => {
-    const lerp = (a, b, t) => a + (b - a) * t;
-    const LERP = 0.16; // lower = dreamier, higher = snappier
-
     const tick = () => {
       const video = videoRef.current;
       if (video && video.readyState >= 2) {
         const diff = targetTimeRef.current - currentTimeRef.current;
-        if (Math.abs(diff) > 0.0008) {
-          currentTimeRef.current = lerp(currentTimeRef.current, targetTimeRef.current, LERP);
-          // fastSeek gives smoother random-access frame delivery in supporting browsers
-          if (typeof video.fastSeek === 'function') {
-            video.fastSeek(currentTimeRef.current);
-          } else {
-            video.currentTime = currentTimeRef.current;
-          }
+        // Ultra-smooth lerp ratio (0.08). If diff is very small, we snap to avoid micro-stutter
+        if (Math.abs(diff) > 0.005) {
+          currentTimeRef.current += diff * 0.08;
+          video.currentTime = currentTimeRef.current;
         }
       }
       rafRef.current = requestAnimationFrame(tick);
     };
-
     rafRef.current = requestAnimationFrame(tick);
     return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
   }, []);
 
-  // ── On load: freeze at first frame, never autoplay ────────────────────────
+  // Guarantee static poster state until user scrolls
   const handleVideoReady = () => {
     const video = videoRef.current;
-    if (!video) return;
-    video.pause();
-    video.currentTime = 0;
-    currentTimeRef.current = 0;
-    targetTimeRef.current = 0;
+    if (video) {
+      video.pause();
+      video.currentTime = 0;
+      currentTimeRef.current = 0;
+    }
   };
 
   return (
-    // ── 280vh outer provides scroll runway (4 story steps × ~70vh each) ─────
-    <div ref={outerRef} style={{ height: '280vh', position: 'relative' }}>
+    // ── 360vh outer provides scroll runway (4 story steps + end buffer) ─────
+    <div ref={outerRef} style={{ height: '360vh', position: 'relative', marginBottom: '8rem' }}>
 
       {/* ── Sticky viewport: pinned at 100vh while user scrolls ── */}
       <div style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden' }}>
@@ -172,10 +173,7 @@ function HeroSection() {
           }} />
           <FloatingParticles count={14} />
 
-          {/* ══════════ LEFT 40% — Text Column ══════════
-              Static HTML — NO Framer Motion initial/animate.
-              Entry animations would re-fire on every AnimatePresence cycle
-              (page navigation), making the text appear to "duplicate" mid-scroll. */}
+          {/* ══════════ LEFT 40% — Text Column ══════════ */}
           <div className="hero-text-col hero-text-inner">
             <h1 className="hero-h1">
               <span style={{ color: 'var(--dark)' }}>PRAVALIKA</span>
@@ -223,22 +221,18 @@ function HeroSection() {
                       ref={el => { storyDotsRef.current[i] = el; }}
                       className="hero-story-dot"
                       style={{
-                        background: i === 0
-                          ? 'linear-gradient(135deg, #D4A017, #E8C547)'
-                          : 'rgba(212,160,23,0.14)',
+                        background: i === 0 ? 'linear-gradient(135deg, #D4A017, #E8C547)' : 'rgba(212,160,23,0.14)',
                         transform: i === 0 ? 'scale(1.55)' : 'scale(1)',
                         boxShadow: i === 0 ? '0 0 8px rgba(212,160,23,0.55)' : 'none',
                       }}
                     />
                   ))}
                 </div>
-                <span
-                  ref={storyLabelRef}
-                  className="hero-story-label"
-                >01 / 04</span>
+                <span ref={storyLabelRef} className="hero-story-label">
+                  01 / 04
+                </span>
               </div>
 
-              {/* Story text blocks — all pre-rendered, opacity controlled via DOM */}
               <div className="hero-story-text-area">
                 {STORY_STEPS.map((step, i) => (
                   <div
@@ -247,7 +241,7 @@ function HeroSection() {
                     className="hero-story-block"
                     style={{
                       opacity: i === 0 ? 1 : 0,
-                      transform: i === 0 ? 'translateY(0px)' : 'translateY(10px)',
+                      transform: i === 0 ? 'translateY(0px)' : 'translateY(20px)',
                     }}
                   >
                     <p className="hero-story-main">{step.text}</p>
@@ -258,20 +252,17 @@ function HeroSection() {
             </div>
           </div>
 
-          {/* ══════════ RIGHT 60% — Scroll-scrubbed Video ══════════ */}
+          {/* ══════════ RIGHT 60% — Scroll Scrubbing Video ══════════ */}
           <div className="hero-video-col" style={{ position: 'relative', overflow: 'hidden' }}>
-
-            {/* Plain <video> — NOT motion.video.
-                Keeps GPU seek compositor completely separate from Framer Motion's
-                transform pipeline, preventing frame-drop during currentTime seeks. */}
+            
+            {/* Standard MP4 Video */}
             <video
               ref={videoRef}
-              src="/dance.mp4"
+              src={heroVideoSrc}
               muted
               playsInline
               preload="auto"
               onLoadedMetadata={handleVideoReady}
-              onLoadedData={handleVideoReady}
               style={{
                 position: 'absolute', inset: 0,
                 width: '100%', height: '100%',
@@ -279,38 +270,32 @@ function HeroSection() {
                 objectPosition: 'center 12%',
                 display: 'block',
                 pointerEvents: 'none',
-                willChange: 'contents',
               }}
             />
 
             {/* Cinematic edge fades */}
-            {/* Left: seamless blend into text column */}
             <div style={{
               position: 'absolute', inset: 0, zIndex: 2, pointerEvents: 'none',
               background: 'linear-gradient(to right, #FAF7F2 0%, rgba(250,247,242,0.6) 14%, rgba(250,247,242,0.1) 36%, transparent 52%)',
             }} />
-            {/* Top: navbar fade */}
             <div style={{
               position: 'absolute', inset: 0, zIndex: 2, pointerEvents: 'none',
               background: 'linear-gradient(to bottom, rgba(250,247,242,0.9) 0%, rgba(250,247,242,0.25) 8%, transparent 24%)',
             }} />
-            {/* Bottom: ground fade */}
             <div style={{
               position: 'absolute', inset: 0, zIndex: 2, pointerEvents: 'none',
               background: 'linear-gradient(to top, rgba(250,247,242,0.72) 0%, transparent 28%)',
             }} />
-            {/* Right: soft vignette */}
             <div style={{
               position: 'absolute', inset: 0, zIndex: 2, pointerEvents: 'none',
               background: 'linear-gradient(to left, rgba(250,247,242,0.28) 0%, transparent 26%)',
             }} />
-            {/* Gold cinematic wash */}
             <div style={{
               position: 'absolute', inset: 0, zIndex: 3, pointerEvents: 'none',
               background: 'radial-gradient(ellipse at 58% 42%, rgba(212,160,23,0.08) 0%, transparent 62%)',
             }} />
 
-            {/* Gold scrub progress bar — DOM ref, zero re-renders */}
+            {/* Gold scrub progress bar */}
             <div style={{
               position: 'absolute', bottom: 0, left: 0, right: 0,
               height: '2px', background: 'rgba(212,160,23,0.12)', zIndex: 10,
@@ -334,7 +319,7 @@ function HeroSection() {
               <div className="hero-scroll-line" />
             </div>
           </div>
-
+          
           {/* Scroll cue — text column side */}
           <div className="hero-scroll-cue">
             <p style={{
@@ -344,140 +329,140 @@ function HeroSection() {
             <div className="hero-scroll-line" />
           </div>
 
-          <style>{`
-            /* ── Grid ── */
-            .hero-section { grid-template-columns: 48fr 52fr; }
-            @media (max-width: 1100px) { .hero-section { grid-template-columns: 50fr 50fr; } }
-            @media (max-width: 768px) {
-              .hero-section { grid-template-columns: 1fr !important; grid-template-rows: 58vh auto; }
-              .hero-video-col { order: -1; min-height: 58vh !important; }
-              .hero-text-inner {
-                text-align: center;
-                padding-left: 1.5rem !important;
-                padding-right: 1.5rem !important;
-                padding-top: 2.5rem !important;
-              }
-              .hero-eyebrow { justify-content: center !important; }
-              .hero-body { max-width: 100% !important; }
-            }
-
-            /* ── Text column ── */
+        <style>{`
+          /* ── Grid ── */
+          .hero-section { grid-template-columns: 48fr 52fr; }
+          @media (max-width: 1100px) { .hero-section { grid-template-columns: 50fr 50fr; } }
+          @media (max-width: 768px) {
+            .hero-section { display: block !important; }
+            .hero-video-col { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; z-index: 1 !important; }
+            .hero-video-col video { object-position: center 20% !important; opacity: 0.85; }
             .hero-text-inner {
-              display: flex; flex-direction: column; justify-content: center;
-              height: 100%;
-              padding-top: max(160px, 20vh); padding-bottom: 64px;
-              padding-left: clamp(1.5rem, 5vw, 5.5rem); padding-right: 2rem;
-              position: relative; z-index: 2;
+              justify-content: flex-end !important;
+              padding-top: 40vh !important; padding-bottom: 2.5rem !important;
+              padding-left: 1rem !important; padding-right: 1rem !important;
+              text-align: center;
+              background: linear-gradient(to top, rgba(250,247,242,1) 0%, rgba(250,247,242,0.92) 30%, rgba(250,247,242,0) 100%);
             }
+            .hero-h1 span { font-size: 1.8rem !important; }
+            .hero-eyebrow { justify-content: center !important; margin-bottom: 0.5rem !important; }
+            .hero-gold-rule { margin-left: auto; margin-right: auto; margin-bottom: 0.5rem !important; }
+            .hero-body { display: none; }
+            .hero-story-panel { margin-left: auto; margin-right: auto; margin-top: 0.5rem !important; }
+            .hero-story-text-area { min-height: 5.5rem !important; }
+          }
 
-            /* ── Eyebrow ── */
-            .hero-eyebrow {
-              font-family: var(--font-cinzel); font-size: 0.65rem; font-weight: 600;
-              letter-spacing: 0.32em; text-transform: uppercase;
-              color: var(--gold); margin-bottom: 1.25rem;
-              display: flex; align-items: center; gap: 0.75rem;
-            }
-            .hero-eyebrow-line { width: 28px; height: 1px; background: var(--gold); display: inline-block; flex-shrink: 0; }
+          /* ── Text column ── */
+          .hero-text-inner {
+            display: flex; flex-direction: column; justify-content: center;
+            height: 100%;
+            padding-top: clamp(130px, 15vh, 180px); padding-bottom: 40px;
+            padding-left: clamp(1.5rem, 5vw, 5.5rem); padding-right: 2rem;
+            position: relative; z-index: 2;
+          }
 
-            /* ── H1 ── */
-            .hero-h1 {
-              font-family: var(--font-cinzel); font-weight: 900;
-              line-height: 1.02; margin-bottom: 1rem; letter-spacing: 0.02em;
-            }
-            .hero-h1 span { display: block; font-size: clamp(2.2rem, 4.2vw, 4.8rem); }
+          /* ── Eyebrow ── */
+          .hero-eyebrow {
+            font-family: var(--font-cinzel); font-size: 0.65rem; font-weight: 600;
+            letter-spacing: 0.32em; text-transform: uppercase;
+            color: var(--gold); margin-bottom: 1.25rem;
+            display: flex; align-items: center; gap: 0.75rem;
+          }
+          .hero-eyebrow-line { width: 28px; height: 1px; background: var(--gold); display: inline-block; flex-shrink: 0; }
 
-            /* ── Tagline ── */
-            .hero-tagline {
-              font-family: var(--font-heading); font-style: italic;
-              font-size: clamp(0.9rem, 1.6vw, 1.15rem);
-              color: var(--secondary); margin-bottom: 0.6rem;
-            }
+          /* ── H1 ── */
+          .hero-h1 {
+            font-family: var(--font-cinzel); font-weight: 900;
+            line-height: 1.02; margin-bottom: 1rem; letter-spacing: 0.02em;
+          }
+          .hero-h1 span { display: block; font-size: clamp(2rem, 3.8vw, 4.2rem); }
 
-            /* ── Gold rule ── */
-            .hero-gold-rule { width: 52px; height: 1.5px; background: linear-gradient(90deg, #D4A017, #E8C547); margin-bottom: 1rem; }
+          /* ── Tagline ── */
+          .hero-tagline {
+            font-family: var(--font-heading); font-style: italic;
+            font-size: clamp(0.9rem, 1.6vw, 1.15rem);
+            color: var(--secondary); margin-bottom: 0.6rem;
+          }
 
-            /* ── Body ── */
-            .hero-body {
-              font-family: var(--font-body); font-size: clamp(0.85rem, 1.1vw, 0.97rem);
-              line-height: 1.9; color: var(--secondary); max-width: 440px; margin-bottom: 1.5rem;
-            }
+          /* ── Gold rule ── */
+          .hero-gold-rule { width: 52px; height: 1.5px; background: linear-gradient(90deg, #D4A017, #E8C547); margin-bottom: 1rem; }
 
-            /* ── Storytelling panel ── */
-            .hero-story-panel {
-              margin-top: 1.2rem;
-              max-width: 440px;
-            }
-            .hero-story-sep {
-              width: 100%; height: 1px;
-              background: linear-gradient(90deg, rgba(212,160,23,0.35), transparent);
-              margin-bottom: 0.85rem;
-            }
-            .hero-story-nav {
-              display: flex; align-items: center;
-              justify-content: space-between;
-              margin-bottom: 0.85rem;
-            }
-            .hero-story-dot {
-              width: 6px; height: 6px; border-radius: 50%;
-              transition: background 0.45s ease, transform 0.45s ease, box-shadow 0.45s ease;
-              flex-shrink: 0;
-            }
-            .hero-story-label {
-              font-family: var(--font-cinzel); font-size: 0.5rem;
-              letter-spacing: 0.25em; color: rgba(212,160,23,0.55);
-            }
-            .hero-story-text-area {
-              position: relative;
-              min-height: 7rem;
-            }
-            .hero-story-block {
-              position: absolute;
-              top: 0; left: 0; right: 0;
-              transition: opacity 0.55s cubic-bezier(0.4,0,0.2,1), transform 0.55s cubic-bezier(0.4,0,0.2,1);
-              pointer-events: none;
-            }
-            .hero-story-main {
-              font-family: var(--font-cinzel);
-              font-size: clamp(0.78rem, 1.05vw, 0.9rem);
-              font-weight: 600;
-              letter-spacing: 0.04em;
-              color: var(--dark);
-              line-height: 1.55;
-              margin-bottom: 0.35rem;
-            }
-            .hero-story-note {
-              font-family: var(--font-body);
-              font-size: clamp(0.7rem, 0.85vw, 0.78rem);
-              color: var(--secondary);
-              font-style: italic;
-              letter-spacing: 0.02em;
-              line-height: 1.5;
-            }
-            @media (max-width: 768px) {
-              .hero-story-panel { max-width: 100%; }
-            }
+          /* ── Body ── */
+          .hero-body {
+            font-family: var(--font-body); font-size: clamp(0.85rem, 1.1vw, 0.97rem);
+            line-height: 1.9; color: var(--secondary); max-width: 440px; margin-bottom: 1.5rem;
+          }
 
-            /* ── Scroll hints ── */
-            .hero-scroll-hint-right {
-              position: absolute; bottom: 1.5rem; right: 2.5rem; z-index: 10;
-              display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem;
-            }
-            .hero-scroll-cue {
-              position: absolute; bottom: 1rem; left: 24%;
-              transform: translateX(-50%);
-              display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-              z-index: 10; pointer-events: none;
-            }
-            .hero-scroll-line {
-              width: 1px; height: 34px;
-              background: linear-gradient(to bottom, var(--gold), transparent);
-              animation: hero-bob 1.6s ease-in-out infinite;
-            }
-            @keyframes hero-bob {
-              0%, 100% { transform: translateY(0); }
-              50%       { transform: translateY(7px); }
-            }
-          `}</style>
+          /* ── Storytelling panel ── */
+          .hero-story-panel {
+            margin-top: 1.2rem;
+            max-width: 440px;
+          }
+          .hero-story-sep {
+            width: 100%; height: 1px;
+            background: linear-gradient(90deg, rgba(212,160,23,0.35), transparent);
+            margin-bottom: 0.85rem;
+          }
+          .hero-story-nav {
+            display: flex; align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.85rem;
+          }
+          .hero-story-dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            transition: background 0.45s ease, transform 0.45s ease, box-shadow 0.45s ease;
+            flex-shrink: 0;
+          }
+          .hero-story-label {
+            font-family: var(--font-cinzel); font-size: 0.5rem;
+            letter-spacing: 0.25em; color: rgba(212,160,23,0.55);
+          }
+          .hero-story-text-area {
+            position: relative;
+            min-height: 7rem;
+          }
+          .hero-story-block {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            transition: opacity 0.55s cubic-bezier(0.4,0,0.2,1), transform 0.55s cubic-bezier(0.4,0,0.2,1);
+            pointer-events: none;
+          }
+          .hero-story-main {
+            font-family: var(--font-cinzel);
+            font-size: clamp(0.78rem, 1.05vw, 0.9rem);
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            color: var(--dark);
+            line-height: 1.55;
+            margin-bottom: 0.35rem;
+          }
+          .hero-story-note {
+            font-family: var(--font-body);
+            font-size: clamp(0.7rem, 0.85vw, 0.78rem);
+            color: var(--secondary);
+            font-style: italic;
+            letter-spacing: 0.02em;
+            line-height: 1.5;
+          }
+          @media (max-width: 768px) {
+            .hero-story-panel { max-width: 100%; }
+          }
+
+          /* ── Scroll hints ── */
+          .hero-scroll-hint-right {
+            position: absolute; bottom: 1.5rem; right: 2.5rem; z-index: 10;
+            display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem;
+          }
+          .hero-scroll-line {
+            width: 1px; height: 34px;
+            background: linear-gradient(to bottom, var(--gold), transparent);
+            animation: hero-bob 1.6s ease-in-out infinite;
+          }
+          @keyframes hero-bob {
+            0%, 100% { transform: translateY(0); }
+            50%       { transform: translateY(7px); }
+          }
+        `}</style>
         </section>
       </div>
     </div>
@@ -508,7 +493,7 @@ function WhyChooseUs() {
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 240px), 1fr))',
           gap: '1.5rem',
         }}>
           {WHY_CHOOSE.map((item, i) => (
@@ -624,7 +609,7 @@ function AchievementsSection() {
       <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 2rem' }}>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 180px), 1fr))',
           gap: '1rem',
         }}>
           {COUNTERS.map((item, i) => (
@@ -728,12 +713,12 @@ function FeaturedPerformances() {
           ))}
         </Swiper>
 
-        <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+        {/* <div style={{ textAlign: 'center', marginTop: '1rem' }}>
           <a href={SITE.youtube} target="_blank" rel="noreferrer" className="btn-outline">
             <FaYoutube size={16} />
             <span>View Full Channel</span>
           </a>
-        </div>
+        </div> */}
       </div>
     </section>
   );
@@ -827,7 +812,7 @@ function AcademyHighlights() {
       <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 2rem' }}>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
           gap: '3rem',
           alignItems: 'center',
         }}>
@@ -886,12 +871,6 @@ function AcademyHighlights() {
                 <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.9rem', color: 'var(--secondary)', lineHeight: 1.6 }}>{point}</p>
               </div>
             ))}
-            <div style={{ marginTop: '2rem' }}>
-              <Link to="/about" className="btn-luxury">
-                <span>Meet Our Guru</span>
-                <FaArrowRight size={10} />
-              </Link>
-            </div>
           </motion.div>
 
           {/* Right — photo collage */}
