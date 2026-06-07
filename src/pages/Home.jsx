@@ -42,6 +42,8 @@ function HeroSection() {
     let ticking = false;
 
     const onScroll = () => {
+      if (window.innerWidth <= 768) return; // Disable scroll animation on mobile
+
       if (!ticking) {
         window.requestAnimationFrame(() => {
           const el = outerRef.current;
@@ -123,6 +125,10 @@ function HeroSection() {
   // ── RAF loop: seamlessly lerp video to targetTime ──
   useEffect(() => {
     const tick = () => {
+      if (window.innerWidth <= 768) {
+        rafRef.current = requestAnimationFrame(tick);
+        return;
+      }
       const video = videoRef.current;
       if (video && video.readyState >= 2) {
         const diff = targetTimeRef.current - currentTimeRef.current;
@@ -150,14 +156,13 @@ function HeroSection() {
 
   return (
     // ── 360vh outer provides scroll runway (4 story steps + end buffer) ─────
-    <div ref={outerRef} style={{ height: '360vh', position: 'relative', marginBottom: '8rem' }}>
+    <div ref={outerRef} className="hero-outer-container" style={{ position: 'relative' }}>
 
       {/* ── Sticky viewport: pinned at 100vh while user scrolls ── */}
-      <div style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden' }}>
+      <div className="hero-sticky-container" style={{ position: 'sticky', top: 0, overflow: 'hidden' }}>
         <section
           className="hero-section"
           style={{
-            height: '100vh',
             background: 'linear-gradient(135deg, #FAF7F2 0%, #F5EFE6 40%, #FAF7F2 100%)',
             display: 'grid',
             position: 'relative',
@@ -255,8 +260,16 @@ function HeroSection() {
           {/* ══════════ RIGHT 60% — Scroll Scrubbing Video ══════════ */}
           <div className="hero-video-col" style={{ position: 'relative', overflow: 'hidden' }}>
             
+            {/* Static Hero Image for Mobile */}
+            <img
+              src="/dancer-hero.jpg"
+              alt="Kuchipudi Dancer"
+              className="hero-mobile-img"
+            />
+
             {/* Standard MP4 Video */}
             <video
+              className="hero-desktop-video"
               ref={videoRef}
               src={heroVideoSrc}
               muted
@@ -274,29 +287,29 @@ function HeroSection() {
             />
 
             {/* Cinematic edge fades */}
-            <div style={{
+            <div className="hero-fade-overlay" style={{
               position: 'absolute', inset: 0, zIndex: 2, pointerEvents: 'none',
               background: 'linear-gradient(to right, #FAF7F2 0%, rgba(250,247,242,0.6) 14%, rgba(250,247,242,0.1) 36%, transparent 52%)',
             }} />
-            <div style={{
+            <div className="hero-fade-overlay" style={{
               position: 'absolute', inset: 0, zIndex: 2, pointerEvents: 'none',
               background: 'linear-gradient(to bottom, rgba(250,247,242,0.9) 0%, rgba(250,247,242,0.25) 8%, transparent 24%)',
             }} />
-            <div style={{
+            <div className="hero-fade-overlay" style={{
               position: 'absolute', inset: 0, zIndex: 2, pointerEvents: 'none',
               background: 'linear-gradient(to top, rgba(250,247,242,0.72) 0%, transparent 28%)',
             }} />
-            <div style={{
+            <div className="hero-fade-overlay" style={{
               position: 'absolute', inset: 0, zIndex: 2, pointerEvents: 'none',
               background: 'linear-gradient(to left, rgba(250,247,242,0.28) 0%, transparent 26%)',
             }} />
-            <div style={{
+            <div className="hero-fade-overlay" style={{
               position: 'absolute', inset: 0, zIndex: 3, pointerEvents: 'none',
               background: 'radial-gradient(ellipse at 58% 42%, rgba(212,160,23,0.08) 0%, transparent 62%)',
             }} />
 
             {/* Gold scrub progress bar */}
-            <div style={{
+            <div className="hero-mobile-hide" style={{
               position: 'absolute', bottom: 0, left: 0, right: 0,
               height: '2px', background: 'rgba(212,160,23,0.12)', zIndex: 10,
             }}>
@@ -330,26 +343,59 @@ function HeroSection() {
           </div>
 
         <style>{`
+          /* ── Containers ── */
+          .hero-outer-container { height: 360vh; margin-bottom: 8rem; }
+          .hero-sticky-container { height: 100vh; }
+          .hero-section { height: 100vh; }
+          .hero-mobile-img { display: none; }
+          .hero-desktop-video { display: block; }
+
           /* ── Grid ── */
           .hero-section { grid-template-columns: 48fr 52fr; }
           @media (max-width: 1100px) { .hero-section { grid-template-columns: 50fr 50fr; } }
           @media (max-width: 768px) {
-            .hero-section { display: block !important; }
+            .hero-outer-container { height: auto !important; margin-bottom: 0 !important; display: flex; flex-direction: column; }
+            .hero-sticky-container { position: relative !important; height: auto !important; overflow: visible !important; }
+            .hero-section { display: block !important; height: auto !important; min-height: 100svh; }
+            
             .hero-video-col { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; z-index: 1 !important; }
-            .hero-video-col video { object-position: center 20% !important; opacity: 0.85; }
+            .hero-mobile-img { 
+              display: block !important; 
+              position: absolute; inset: 0; width: 100%; height: 100%; 
+              object-fit: cover; 
+              object-position: center 15%; 
+              opacity: 0.85;
+            }
+            .hero-desktop-video { display: none !important; }
+            .hero-fade-overlay { display: none !important; }
+            .hero-mobile-hide { display: none !important; }
+            .hero-scroll-hint-right, .hero-scroll-cue { display: none !important; }
+
             .hero-text-inner {
               justify-content: flex-end !important;
-              padding-top: 40vh !important; padding-bottom: 2.5rem !important;
+              padding-top: 140px !important; padding-bottom: 2.5rem !important;
               padding-left: 1rem !important; padding-right: 1rem !important;
               text-align: center;
-              background: linear-gradient(to top, rgba(250,247,242,1) 0%, rgba(250,247,242,0.92) 30%, rgba(250,247,242,0) 100%);
+              background: linear-gradient(to top, rgba(250,247,242,1) 0%, rgba(250,247,242,0.92) 40%, rgba(250,247,242,0) 100%);
             }
-            .hero-h1 span { font-size: 1.8rem !important; }
+            .hero-h1 span { font-size: clamp(1.4rem, 8vw, 1.8rem) !important; }
             .hero-eyebrow { justify-content: center !important; margin-bottom: 0.5rem !important; }
             .hero-gold-rule { margin-left: auto; margin-right: auto; margin-bottom: 0.5rem !important; }
             .hero-body { display: none; }
-            .hero-story-panel { margin-left: auto; margin-right: auto; margin-top: 0.5rem !important; }
-            .hero-story-text-area { min-height: 5.5rem !important; }
+            
+            .hero-story-panel { 
+              margin-left: auto; margin-right: auto; margin-top: 2rem !important; 
+            }
+            .hero-story-nav { display: none !important; }
+            .hero-story-text-area { 
+              min-height: auto !important; 
+              display: flex; flex-direction: column; gap: 1.25rem; 
+            }
+            .hero-story-block { 
+              position: static !important; 
+              opacity: 1 !important; 
+              transform: none !important; 
+            }
           }
 
           /* ── Text column ── */
