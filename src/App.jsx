@@ -3,7 +3,6 @@ import { Routes, Route } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import Home    from './pages/Home';
 import History from './pages/History';
-import Courses from './pages/Courses';
 import Gallery from './pages/Gallery';
 import Contact from './pages/Contact';
 
@@ -13,7 +12,6 @@ export default function App() {
       <Routes>
         <Route path="/"        element={<Home />} />
         <Route path="/history" element={<History />} />
-        <Route path="/courses" element={<Courses />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/contact" element={<Contact />} />
         {/* 404 fallback */}

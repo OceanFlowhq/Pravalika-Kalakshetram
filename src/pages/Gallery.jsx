@@ -33,7 +33,7 @@ const GALLERY_ITEMS = [
   { id: 5, src: img5, alt: 'Classical Dance Workshop' },
   { id: 6, src: img6, alt: 'Arangetram Performance' },
   { id: 7, src: img7, alt: 'Festival Performance' },
-  { id: 8, src: img8, alt: 'Training Session' },
+  { id: 8, src: img8, alt: 'Practice Session' },
   { id: 9, src: img9, alt: 'Abhinaya Workshop' },
   { id: 10, src: img10, alt: 'Grand Performance' },
   { id: 11, src: img11, alt: 'Cultural Festival' },

@@ -119,39 +119,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Courses */}
-          <div>
-            <h4 style={{
-              fontFamily: 'var(--font-cinzel)',
-              fontSize: '0.7rem',
-              letterSpacing: '0.2em',
-              textTransform: 'uppercase',
-              color: '#D4A017',
-              marginBottom: '1.5rem',
-            }}>Programs</h4>
-            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-              {['Beginner Program', 'Intermediate Program', 'Advanced Program', 'Arangetram Preparation'].map((c) => (
-                <li key={c}>
-                  <Link to="/courses" style={{
-                    fontFamily: 'var(--font-body)',
-                    fontSize: '0.85rem',
-                    color: 'rgba(255,255,255,0.55)',
-                    textDecoration: 'none',
-                    transition: 'color 0.3s ease',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                  }}
-                    onMouseEnter={e => e.currentTarget.style.color = '#D4A017'}
-                    onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.55)'}
-                  >
-                    <span style={{ width: '20px', height: '1px', background: '#D4A017', display: 'inline-block' }} />
-                    {c}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+
 
           {/* Contact Info */}
           <div>

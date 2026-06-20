@@ -1,24 +1,87 @@
 // src/pages/Contact.jsx
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaCheck } from 'react-icons/fa';
+import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaWhatsapp } from 'react-icons/fa';
 import { SITE } from '../data/siteData';
 import FloatingParticles from '../components/FloatingParticles';
 import SectionHeading from '../components/SectionHeading';
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: '', email: '', phone: '', program: '', message: '' });
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
+  const [error, setError] = useState('');
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+    if (error) setError('');
+  };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    await new Promise(r => setTimeout(r, 1500));
-    setLoading(false);
-    setSubmitted(true);
+    setError('');
+
+    if (!form.name.trim()) {
+      setError('Please enter your full name.');
+      return;
+    }
+
+    if (!form.phone.trim()) {
+      setError('Please enter your phone number.');
+      return;
+    }
+
+    const phoneRegex = /^[+]?[\d\s-]{7,15}$/;
+    if (!phoneRegex.test(form.phone.trim())) {
+      setError('Please enter a valid phone number.');
+      return;
+    }
+
+    if (!form.email.trim()) {
+      setError('Please enter your email address.');
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(form.email.trim())) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+
+    const messageContent = `🪔━━━━━━━━━━━━━━━━━━🪔
+
+✨ *PRAVALIKA KUCHIPUDI KALAKSHETRAM* ✨
+
+🌸 *A New Inquiry Has Arrived*
+
+━━━━━━━━━━━━━━━━━━
+
+👤 *Name*
+${form.name.trim()}
+
+📞 *Phone Number*
+${form.phone.trim()}
+
+📧 *Email Address*
+${form.email.trim()}
+
+💬 *Message*
+
+"${form.message.trim() || 'No message provided.'}"
+
+━━━━━━━━━━━━━━━━━━
+
+🎭 *Source*
+Official Academy Website
+
+🌿 *Where Tradition Meets Expression*
+
+🙏 Thank you for your interest in preserving and celebrating the timeless beauty of Kuchipudi.
+
+🪔━━━━━━━━━━━━━━━━━━🪔`;
+
+    const encodedMessage = encodeURIComponent(messageContent);
+    const whatsappUrl = `https://wa.me/917330677471?text=${encodedMessage}`;
+
+    window.open(whatsappUrl, '_blank');
   };
 
   return (
@@ -50,7 +113,7 @@ export default function Contact() {
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
             style={{ fontFamily: 'var(--font-body)', fontSize: '1rem', lineHeight: 1.9, color: 'rgba(255,255,255,0.55)', maxWidth: '580px' }}
           >
-            Reach out to Guru Pravalika Kuppili to inquire about our programs, schedule a visit, or enroll in a batch.
+            Reach out to Guru Pravalika Kuppili to learn more about Kuchipudi, schedule a visit, or connect with the academy.
           </motion.p>
         </div>
       </section>
@@ -186,138 +249,91 @@ export default function Contact() {
               viewport={{ once: true }}
               transition={{ duration: 0.9 }}
             >
-              {submitted ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  style={{
-                    display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-                    minHeight: '400px', textAlign: 'center', gap: '1.5rem',
-                    background: 'var(--ivory)', border: '1px solid rgba(212,160,23,0.2)', padding: '3rem',
-                  }}
-                >
-                  <div style={{
-                    width: '70px', height: '70px',
-                    borderRadius: '50%',
-                    background: 'linear-gradient(135deg, #D4A017, #E8C547)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: '1.75rem', color: '#fff',
-                  }}>
-                    <FaCheck />
-                  </div>
-                  <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.75rem', color: 'var(--dark)', fontWeight: 700 }}>
-                    Message Received!
-                  </h3>
-                  <p style={{ fontFamily: 'var(--font-body)', color: 'var(--secondary)', lineHeight: 1.8 }}>
-                    Thank you for reaching out. Guru Pravalika will respond to you shortly.
+              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                <div>
+                  <p style={{ fontFamily: 'var(--font-cinzel)', fontSize: '0.65rem', letterSpacing: '0.25em', color: 'var(--gold)', textTransform: 'uppercase', marginBottom: '1rem' }}>
+                    Send a Message
                   </p>
-                  <button
-                    onClick={() => { setSubmitted(false); setForm({ name: '', email: '', phone: '', program: '', message: '' }); }}
-                    className="btn-luxury"
-                  >
-                    <span>Send Another Message</span>
-                  </button>
-                </motion.div>
-              ) : (
-                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                  <div>
-                    <p style={{ fontFamily: 'var(--font-cinzel)', fontSize: '0.65rem', letterSpacing: '0.25em', color: 'var(--gold)', textTransform: 'uppercase', marginBottom: '1rem' }}>
-                      Send an Inquiry
-                    </p>
-                    <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.8rem', fontWeight: 700, color: 'var(--dark)', marginBottom: '1.5rem' }}>
-                      Get In Touch
-                    </h3>
-                  </div>
+                  <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.8rem', fontWeight: 700, color: 'var(--dark)', marginBottom: '1.5rem' }}>
+                    Get In Touch
+                  </h3>
+                </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                    <div>
-                      <label style={{ fontFamily: 'var(--font-cinzel)', fontSize: '0.6rem', letterSpacing: '0.15em', color: 'var(--secondary)', textTransform: 'uppercase', display: 'block', marginBottom: '0.5rem' }}>
-                        Full Name *
-                      </label>
-                      <input
-                        type="text"
-                        name="name"
-                        value={form.name}
-                        onChange={handleChange}
-                        required
-                        placeholder="Your name"
-                        className="luxury-input"
-                      />
-                    </div>
-                    <div>
-                      <label style={{ fontFamily: 'var(--font-cinzel)', fontSize: '0.6rem', letterSpacing: '0.15em', color: 'var(--secondary)', textTransform: 'uppercase', display: 'block', marginBottom: '0.5rem' }}>
-                        Phone Number
-                      </label>
-                      <input
-                        type="tel"
-                        name="phone"
-                        value={form.phone}
-                        onChange={handleChange}
-                        placeholder="Your phone"
-                        className="luxury-input"
-                      />
-                    </div>
+                {error && (
+                  <div style={{ padding: '0.75rem 1rem', background: 'rgba(220, 53, 69, 0.05)', borderLeft: '3px solid #dc3545', color: '#dc3545', fontSize: '0.85rem', fontFamily: 'var(--font-body)' }}>
+                    {error}
                   </div>
+                )}
 
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                   <div>
                     <label style={{ fontFamily: 'var(--font-cinzel)', fontSize: '0.6rem', letterSpacing: '0.15em', color: 'var(--secondary)', textTransform: 'uppercase', display: 'block', marginBottom: '0.5rem' }}>
-                      Email Address *
+                      Full Name *
                     </label>
                     <input
-                      type="email"
-                      name="email"
-                      value={form.email}
+                      type="text"
+                      name="name"
+                      value={form.name}
                       onChange={handleChange}
-                      required
-                      placeholder="your@email.com"
+                      placeholder="Your name"
                       className="luxury-input"
                     />
                   </div>
-
                   <div>
                     <label style={{ fontFamily: 'var(--font-cinzel)', fontSize: '0.6rem', letterSpacing: '0.15em', color: 'var(--secondary)', textTransform: 'uppercase', display: 'block', marginBottom: '0.5rem' }}>
-                      Program of Interest
+                      Phone Number *
                     </label>
-                    <select
-                      name="program"
-                      value={form.program}
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={form.phone}
                       onChange={handleChange}
+                      placeholder="Your phone"
                       className="luxury-input"
-                    >
-                      <option value="">Select a Program</option>
-                      <option>Beginner Program</option>
-                      <option>Intermediate Program</option>
-                      <option>Advanced Program</option>
-                      <option>Arangetram Preparation</option>
-                      <option>General Inquiry</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label style={{ fontFamily: 'var(--font-cinzel)', fontSize: '0.6rem', letterSpacing: '0.15em', color: 'var(--secondary)', textTransform: 'uppercase', display: 'block', marginBottom: '0.5rem' }}>
-                      Message
-                    </label>
-                    <textarea
-                      name="message"
-                      value={form.message}
-                      onChange={handleChange}
-                      placeholder="Tell us about yourself and your dance aspirations..."
-                      rows={5}
-                      className="luxury-input"
-                      style={{ resize: 'vertical' }}
                     />
                   </div>
+                </div>
 
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="btn-luxury"
-                    style={{ justifyContent: 'center', opacity: loading ? 0.8 : 1 }}
-                  >
-                    <span>{loading ? 'Sending...' : 'Send Inquiry'}</span>
-                  </button>
-                </form>
-              )}
+                <div>
+                  <label style={{ fontFamily: 'var(--font-cinzel)', fontSize: '0.6rem', letterSpacing: '0.15em', color: 'var(--secondary)', textTransform: 'uppercase', display: 'block', marginBottom: '0.5rem' }}>
+                    Email Address *
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    placeholder="your@email.com"
+                    className="luxury-input"
+                  />
+                </div>
+
+
+
+                <div>
+                  <label style={{ fontFamily: 'var(--font-cinzel)', fontSize: '0.6rem', letterSpacing: '0.15em', color: 'var(--secondary)', textTransform: 'uppercase', display: 'block', marginBottom: '0.5rem' }}>
+                    Message
+                  </label>
+                  <textarea
+                    name="message"
+                    value={form.message}
+                    onChange={handleChange}
+                    placeholder="Tell us about yourself and your dance aspirations..."
+                    rows={5}
+                    className="luxury-input"
+                    style={{ resize: 'vertical' }}
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="btn-luxury"
+                  style={{ justifyContent: 'center' }}
+                >
+                  <FaWhatsapp style={{ fontSize: '1.2rem', marginRight: '0.5rem' }} />
+                  <span>SEND ON WHATSAPP</span>
+                </button>
+              </form>
             </motion.div>
           </div>
         </div>
@@ -343,11 +359,17 @@ export default function Contact() {
           >
             <iframe
               title="Pravalika Kuchipudi Kalakshetram Location"
-              src="https://maps.google.com/maps?q=Genious%20Elite,%20Near%20Malkam%20Cheruvu,%20Raidurg,%20Gachibowli,%20Telangana%20500032&t=&z=16&ie=UTF8&iwloc=&output=embed"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7613.730966369274!2d78.38412269999999!3d17.418242!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb97eb36e67bff%3A0x73193a386776c2d7!2sGenious%20Elite!5e0!3m2!1sen!2sin!4v1780918541350!5m2!1sen!2sin"
               width="100%"
-              height="450"
-              style={{ border: 0, display: 'block' }}
-              allowFullScreen=""
+              height="500"
+              style={{
+                border: 0,
+                display: 'block',
+                width: '100%',
+                borderRadius: '16px',
+                overflow: 'hidden'
+              }}
+              allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />

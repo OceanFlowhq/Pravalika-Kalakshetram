@@ -25,131 +25,38 @@ export const SITE = {
 export const NAV_LINKS = [
   { label: 'Home', path: '/' },
   { label: 'History', path: '/history' },
-  { label: 'Courses', path: '/courses' },
   { label: 'Gallery', path: '/gallery' },
   { label: 'Contact', path: '/contact' },
 ];
 
 export const WHY_CHOOSE = [
   {
-    icon: 'certificate',
-    title: 'Certified Training',
-    desc: 'Authentic Kuchipudi curriculum designed by our Guru — structured, classical, and recognized.',
-  },
-  {
-    icon: 'stage',
-    title: 'Stage Performance Opportunities',
-    desc: 'Regular arangetrams, cultural festivals, and national-level performance platforms.',
-  },
-  {
     icon: 'scroll',
-    title: 'Traditional Curriculum',
-    desc: 'Rooted in Andhra heritage — from basic adavus to full-length abhinaya presentations.',
+    title: 'Classical Heritage',
+    desc: 'Celebrating and preserving the beauty of Kuchipudi through dedication, discipline, and artistic expression.',
   },
   {
     icon: 'heart',
-    title: 'Personalized Guidance',
-    desc: 'Small batch sizes ensure every student receives individual mentorship and care.',
+    title: 'Cultural Values',
+    desc: 'Encouraging a deeper appreciation for India\'s rich classical traditions and storytelling heritage.',
+  },
+  {
+    icon: 'stage',
+    title: 'Artistic Journey',
+    desc: 'Creating a space where learners can explore rhythm, expression, and the timeless spirit of Kuchipudi.',
   },
 ];
 
-export const COUNTERS = [
-  { value: 200, suffix: '+', label: 'Students Trained' },
-  { value: 15, suffix: '+', label: 'Years of Excellence' },
-  { value: 50, suffix: '+', label: 'Stage Performances' },
-  { value: 100, suffix: '%', label: 'Student Satisfaction' },
-];
 
-export const TESTIMONIALS = [
-  {
-    name: 'Ananya Reddy',
-    role: 'Student — Advanced Batch',
-    text: "Guru Pravalika's teaching transformed my understanding of Kuchipudi. Every class is a journey into the depths of classical expression.",
-    stars: 5,
-  },
-  {
-    name: 'Priya Sharma',
-    role: 'Parent',
-    text: 'My daughter blossomed here — not just as a dancer but as a confident young woman. The academy instills discipline and artistry together.',
-    stars: 5,
-  },
-  {
-    name: 'Meghana Rao',
-    role: 'Student — Intermediate Batch',
-    text: 'The personalized attention and authentic curriculum here is unmatched. I feel deeply connected to my cultural roots through this art form.',
-    stars: 5,
-  },
-  {
-    name: 'Kavitha Nair',
-    role: 'Parent',
-    text: 'A nurturing environment that combines tradition with modern teaching methods. My child looks forward to every single class.',
-    stars: 5,
-  },
-];
-
-export const COURSES = [
-  {
-    level: 'Beginner',
-    subtitle: 'Foundation & Fundamentals',
-    duration: '12 Months',
-    sessions: '3 Sessions / Week',
-    price: 'Contact for Pricing',
-    features: [
-      'Basic Adavus & Footwork',
-      'Introduction to Abhinaya',
-      'Mudras & Hastas',
-      'Rhythm & Tala Basics',
-      'Classical Music Appreciation',
-      'Annual Performance Participation',
-    ],
-    ideal: 'Ages 5 and above, no prior experience required.',
-    color: 'from-amber-50 to-yellow-50',
-  },
-  {
-    level: 'Intermediate',
-    subtitle: 'Expression & Artistry',
-    duration: '18 Months',
-    sessions: '4 Sessions / Week',
-    price: 'Contact for Pricing',
-    features: [
-      'Advanced Adavu Sequences',
-      'Keertanams & Javalis',
-      'Detailed Abhinaya Training',
-      'Stage Choreography',
-      'Costume & Makeup Workshop',
-      'Festival Performance Slots',
-    ],
-    ideal: 'Students with minimum 1 year of Kuchipudi training.',
-    color: 'from-yellow-50 to-orange-50',
-    featured: true,
-  },
-  {
-    level: 'Advanced',
-    subtitle: 'Mastery & Arangetram',
-    duration: '24+ Months',
-    sessions: '5 Sessions / Week',
-    price: 'Contact for Pricing',
-    features: [
-      'Full Margam Presentation',
-      'Arangetram Preparation',
-      'Tillana & Padam Mastery',
-      'Solo Choreography Design',
-      'National Level Competitions',
-      'Teaching Assistant Role',
-    ],
-    ideal: 'Dedicated students pursuing a professional dance career.',
-    color: 'from-orange-50 to-amber-50',
-  },
-];
 
 export const FAQS = [
   {
     q: 'What is the minimum age to join?',
-    a: 'We welcome students from age 5 onwards. Young learners join our Beginner program with age-appropriate training methodology.',
+    a: 'We welcome students from age 5 onwards. Young learners join us with age-appropriate guidance.',
   },
   {
     q: 'Do I need prior dance experience?',
-    a: 'No prior experience is needed for the Beginner program. Intermediate and Advanced programs require prior Kuchipudi training.',
+    a: 'No prior experience is needed. We welcome learners of all stages to explore the art form.',
   },
   {
     q: 'How are batches scheduled?',
@@ -157,11 +64,11 @@ export const FAQS = [
   },
   {
     q: 'What is an Arangetram?',
-    a: 'An Arangetram is the formal solo debut performance of a classical dancer — a grand celebration of years of dedicated training and artistry.',
+    a: 'An Arangetram is the formal solo debut performance of a classical dancer — a grand celebration of years of dedicated practice and artistry.',
   },
   {
     q: 'Do you issue certificates?',
-    a: 'Yes. Students who complete each level receive certified documentation. Advanced students are supported in obtaining Sangeet Natak Akademi recognition.',
+    a: 'Yes. We guide our students with dedication, and dedicated learners are supported in their artistic journey.',
   },
   {
     q: 'Is there an online learning option?',

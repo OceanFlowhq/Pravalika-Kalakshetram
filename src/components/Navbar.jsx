@@ -92,7 +92,7 @@ export default function Navbar() {
               </NavLink>
             ))}
             <Link to="/contact" className="btn-luxury" style={{ padding: '0.6rem 1.5rem', fontSize: '0.65rem' }}>
-              <span>Join Now</span>
+              <span>Get In Touch</span>
             </Link>
           </nav>
 
@@ -206,7 +206,7 @@ export default function Navbar() {
               style={{ marginTop: '2rem' }}
             >
               <Link to="/contact" className="btn-luxury" style={{ width: '100%', justifyContent: 'center' }}>
-                <span>Join Now</span>
+                <span>Get In Touch</span>
               </Link>
             </motion.div>
           </motion.div>
