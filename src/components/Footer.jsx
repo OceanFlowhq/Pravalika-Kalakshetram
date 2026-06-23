@@ -43,8 +43,8 @@ export default function Footer() {
         }}>
           {/* Brand Column */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }} className="footer-brand-col">
-            <div style={{ marginBottom: '1.5rem', width: '100%', maxWidth: '280px' }} className="footer-logo-wrapper">
-              <img src={logoImg} alt="Pravalika Kuchipudi Kalakshetram Logo" style={{ width: '100%', height: 'auto', maxHeight: '110px', objectFit: 'contain', objectPosition: 'left center', display: 'block', filter: 'brightness(0) invert(1)' }} className="footer-logo-img" />
+            <div style={{ marginBottom: '1.5rem', width: '100%', maxWidth: '420px' }} className="footer-logo-wrapper">
+              <img src={logoImg} alt="Pravalika Kuchipudi Kalakshetram Logo" style={{ width: '100%', height: 'auto', maxHeight: '200px', objectFit: 'contain', objectPosition: 'left center', display: 'block', filter: 'invert(1)' }} className="footer-logo-img" />
             </div>
             <p style={{
               fontFamily: 'var(--font-body)',

@@ -35,11 +35,11 @@ export default function Navbar() {
           top: 0, left: 0, right: 0,
           zIndex: 1000,
           transition: 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-          background: 'rgba(255,255,255,0.92)',
+          background: 'rgba(248, 240, 223, 0.96)',
           backdropFilter: 'blur(16px) saturate(200%)',
           WebkitBackdropFilter: 'blur(16px) saturate(200%)',
-          borderBottom: '1px solid rgba(212,160,23,0.12)',
-          boxShadow: '0 2px 24px rgba(0,0,0,0.06)',
+          borderBottom: '1px solid rgba(212,160,23,0.2)',
+          boxShadow: '0 2px 24px rgba(212,160,23,0.08)',
         }}
       >
         <div style={{
@@ -54,7 +54,7 @@ export default function Navbar() {
         }}>
           {/* Logo */}
           <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', marginRight: 'auto', marginLeft: '20px', flexShrink: 0, height: '100%', padding: '0.4rem 0' }}>
-            <img src={logoImg} alt="Pravalika Kuchipudi Kalakshetram Logo" className="nav-logo" style={{ width: 'auto', objectFit: 'contain', display: 'block', mixBlendMode: 'multiply', transform: 'scale(1.91)' }} />
+            <img src={logoImg} alt="Pravalika Kuchipudi Kalakshetram Logo" className="nav-logo" style={{ width: 'auto', objectFit: 'contain', display: 'block', mixBlendMode: 'multiply', transform: 'scale(2.6)', transformOrigin: 'left center' }} />
           </Link>
 
           {/* Desktop Nav */}
@@ -132,7 +132,7 @@ export default function Navbar() {
               top: 0, right: 0, bottom: 0,
               width: '80%',
               maxWidth: '360px',
-              background: 'rgba(255,255,255,0.97)',
+              background: 'rgba(248, 240, 223, 0.98)',
               backdropFilter: 'blur(24px)',
               zIndex: 1001,
               padding: '6rem 2.5rem 2.5rem',
@@ -205,9 +205,41 @@ export default function Navbar() {
               transition={{ delay: 0.5 }}
               style={{ marginTop: '2rem' }}
             >
-              <Link to="/contact" className="btn-luxury" style={{ width: '100%', justifyContent: 'center' }}>
-                <span>Get In Touch</span>
+              {/* Divider */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
+                <div style={{ flex: 1, height: '1px', background: 'linear-gradient(to right, rgba(212,160,23,0.1), rgba(212,160,23,0.4))' }} />
+                <span style={{ fontFamily: 'var(--font-cinzel)', fontSize: '0.55rem', letterSpacing: '0.2em', color: 'rgba(212,160,23,0.6)', textTransform: 'uppercase' }}>Connect</span>
+                <div style={{ flex: 1, height: '1px', background: 'linear-gradient(to left, rgba(212,160,23,0.1), rgba(212,160,23,0.4))' }} />
+              </div>
+
+              {/* Primary CTA */}
+              <Link
+                to="/contact"
+                className="btn-luxury"
+                style={{
+                  width: '100%', justifyContent: 'center',
+                  padding: '1rem 1.5rem',
+                  fontSize: '0.7rem',
+                  letterSpacing: '0.18em',
+                  borderRadius: '2px',
+                  boxShadow: '0 4px 20px rgba(212,160,23,0.25)',
+                }}
+              >
+                <span style={{ position: 'relative', zIndex: 1 }}>GET IN TOUCH</span>
               </Link>
+
+              {/* Tagline */}
+              <p style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: '0.7rem',
+                fontStyle: 'italic',
+                color: 'rgba(107,107,107,0.7)',
+                textAlign: 'center',
+                marginTop: '0.75rem',
+                letterSpacing: '0.02em',
+              }}>
+                Where Tradition Meets Expression
+              </p>
             </motion.div>
           </motion.div>
         )}

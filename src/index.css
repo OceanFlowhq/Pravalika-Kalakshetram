@@ -5,8 +5,9 @@
 /* ─── CSS Custom Properties ─────────────────────── */
 :root {
   --white: #FFFFFF;
-  --ivory: #FAF7F2;
-  --beige: #F5EFE6;
+  --ivory: #F8F0DF;
+  --beige: #F0E4C8;
+  --papyrus: #EDD9A3;
   --gold: #D4A017;
   --gold-light: #E8C547;
   --gold-dark: #B8860B;
@@ -31,9 +32,19 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ─── Papyrus / Warm Parchment Background ────────────── */
+.heritage-papyrus {
+  background:
+    radial-gradient(ellipse at 10% 20%, rgba(212,160,23,0.09) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 80%, rgba(212,160,23,0.07) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(200,150,30,0.05) 0%, transparent 60%),
+    linear-gradient(160deg, #F8F0DF 0%, #F2E5C5 40%, #EDD9A3 70%, #F0E4C8 100%);
+  position: relative;
+}
+
 /* ─── Scrollbar ──────────────────────────────────── */
 ::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: var(--ivory); }
+::-webkit-scrollbar-track { background: #F2E5C5; }
 ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
 
 /* ─── Typography Utilities ───────────────────────── */
@@ -196,7 +207,7 @@ body {
 .luxury-input {
   width: 100%;
   padding: 1rem 1.25rem;
-  background: rgba(255,255,255,0.8);
+  background: rgba(252, 246, 234, 0.9);
   border: 1px solid rgba(212,160,23,0.2);
   font-family: var(--font-body);
   font-size: 0.875rem;
@@ -221,3 +232,248 @@ body {
   background: linear-gradient(to bottom, transparent, rgba(212,160,23,0.4), transparent);
   transform: translateX(-50%);
 }
+
+/* ═══════════════════════════════════════════════════
+   HERITAGE ATMOSPHERE DESIGN SYSTEM
+   ═══════════════════════════════════════════════════ */
+
+/* ─── Heritage Card — Premium gold-bordered cards ─── */
+.heritage-card {
+  background: rgba(255, 252, 244, 0.95);
+  border: 1px solid rgba(212,160,23,0.18);
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.04), 0 1px 4px rgba(212,160,23,0.06);
+}
+.heritage-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent 0%, #D4A017 30%, #E8C547 50%, #D4A017 70%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.heritage-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212,160,23,0.3), transparent);
+}
+.heritage-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 60px rgba(212,160,23,0.1), 0 8px 24px rgba(0,0,0,0.06);
+  border-color: rgba(212,160,23,0.4);
+}
+.heritage-card:hover::before { opacity: 1; }
+
+/* Corner ornament pseudo-elements on cards */
+.heritage-card-corners {
+  position: relative;
+}
+.heritage-card-corners::before,
+.heritage-card-corners::after {
+  content: '';
+  position: absolute;
+  width: 16px; height: 16px;
+  border-color: rgba(212,160,23,0.35);
+  border-style: solid;
+}
+.heritage-card-corners::before {
+  top: 8px; left: 8px;
+  border-width: 1.5px 0 0 1.5px;
+}
+.heritage-card-corners::after {
+  bottom: 8px; right: 8px;
+  border-width: 0 1.5px 1.5px 0;
+}
+
+/* ─── Section with heritage paper texture ─────────── */
+.heritage-section-light {
+  background:
+    radial-gradient(ellipse at 15% 50%, rgba(212,160,23,0.06) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 20%, rgba(212,160,23,0.05) 0%, transparent 55%),
+    linear-gradient(160deg, #F8F0DF 0%, #F4E8CC 40%, #F8F0DF 100%);
+}
+.heritage-section-ivory {
+  background:
+    radial-gradient(ellipse at 10% 30%, rgba(212,160,23,0.07) 0%, transparent 45%),
+    radial-gradient(ellipse at 90% 70%, rgba(212,160,23,0.07) 0%, transparent 45%),
+    linear-gradient(160deg, #F2E5C5 0%, #EDD9A3 50%, #F0E4C8 100%);
+}
+.heritage-section-dark {
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(212,160,23,0.07) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 50%, rgba(212,160,23,0.05) 0%, transparent 45%),
+    linear-gradient(135deg, #1A1A1A 0%, #0D0D0D 50%, #1A1A1A 100%);
+}
+
+/* ─── Ornamental gold border lines ───────────────── */
+.gold-border-top {
+  border-top: 1px solid rgba(212,160,23,0.2);
+}
+.gold-border-bottom {
+  border-bottom: 1px solid rgba(212,160,23,0.2);
+}
+
+/* ─── Heritage Icon Circle ───────────────────────── */
+.heritage-icon-circle {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(212,160,23,0.1), rgba(212,160,23,0.02));
+  display: flex; align-items: center; justify-content: center;
+  color: #D4A017;
+  position: relative;
+  margin: 0 auto 1.5rem;
+}
+.heritage-icon-circle::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px dashed rgba(212,160,23,0.3);
+  animation: spin 20s linear infinite;
+}
+.heritage-icon-circle::after {
+  content: '';
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  border: 1px solid rgba(212,160,23,0.1);
+}
+
+/* ─── Section Divider Ornamental ─────────────────── */
+.ornamental-divider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem 0;
+}
+.ornamental-divider::before,
+.ornamental-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(212,160,23,0.3), transparent);
+}
+
+/* ─── Floating bell animation ─────────────────────── */
+@keyframes bellSwing {
+  0%   { transform: rotate(-5deg) translateY(0); }
+  50%  { transform: rotate(5deg) translateY(-3px); }
+  100% { transform: rotate(-5deg) translateY(0); }
+}
+.bell-swing-1 { animation: bellSwing 3.2s ease-in-out infinite; }
+.bell-swing-2 { animation: bellSwing 2.8s ease-in-out infinite 0.4s; }
+.bell-swing-3 { animation: bellSwing 3.6s ease-in-out infinite 0.8s; }
+
+/* ─── Heritage section pattern overlay ──────────────*/
+.heritage-pattern-overlay {
+  position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(212,160,23,0.04) 40px),
+    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(212,160,23,0.04) 40px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── Glowing gold dot accent ────────────────────── */
+.gold-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #D4A017;
+  box-shadow: 0 0 8px rgba(212,160,23,0.6);
+  display: inline-block;
+}
+
+/* ─── Premium statistic tile ─────────────────────── */
+.stat-tile {
+  padding: 2rem;
+  background: rgba(255, 252, 244, 0.95);
+  border: 1px solid rgba(212,160,23,0.15);
+  text-align: center;
+  position: relative;
+  transition: all 0.3s ease;
+}
+.stat-tile::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%; transform: translateX(-50%);
+  width: 40%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #D4A017, transparent);
+}
+.stat-tile:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(212,160,23,0.1);
+  border-color: rgba(212,160,23,0.35);
+}
+
+/* ─── Heritage quote block ───────────────────────── */
+.heritage-quote {
+  border-left: 3px solid #D4A017;
+  padding: 1.5rem 2rem;
+  background: rgba(212,160,23,0.03);
+  position: relative;
+  font-family: var(--font-heading);
+  font-style: italic;
+}
+.heritage-quote::before {
+  content: '"';
+  position: absolute;
+  top: -0.5rem; left: 1rem;
+  font-size: 4rem;
+  color: rgba(212,160,23,0.2);
+  font-family: var(--font-heading);
+  line-height: 1;
+}
+
+/* ─── Spinning mandala animation ─────────────────── */
+@keyframes mandala-rotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.mandala-spin { animation: mandala-rotate 60s linear infinite; }
+.mandala-spin-reverse { animation: mandala-rotate 45s linear infinite reverse; }
+
+/* ─── Side strip decorative border ──────────────── */
+.side-border-left::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, transparent, #D4A017, transparent);
+}
+.side-border-right::after {
+  content: '';
+  position: absolute;
+  right: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, transparent, #D4A017, transparent);
+}
+
+/* ─── Heritage image frame ───────────────────────── */
+.heritage-frame {
+  position: relative;
+}
+.heritage-frame::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border: 1px solid rgba(212,160,23,0.25);
+  pointer-events: none;
+}
+.heritage-frame::after {
+  content: '';
+  position: absolute;
+  inset: -12px;
+  border: 1px solid rgba(212,160,23,0.1);
+  pointer-events: none;
+}
+
+@keyframes spin { 100% { transform: rotate(360deg); } }
+

@@ -5,7 +5,7 @@ export const SITE = {
   nameShort: 'PKK',
   tagline: 'Where Tradition Meets Expression',
   founder: 'Guru Pravalika Kuppili',
-  phone: '7330677471',
+  phone: '+91 7993870126',
   email: 'pravalikakuppili08@gmail.com',
   address: {
     flat: 'FLAT NO 68, SIXTH FLOOR',
@@ -31,14 +31,14 @@ export const NAV_LINKS = [
 
 export const WHY_CHOOSE = [
   {
-    icon: 'scroll',
+    icon: 'certificate',
     title: 'Classical Heritage',
     desc: 'Celebrating and preserving the beauty of Kuchipudi through dedication, discipline, and artistic expression.',
   },
   {
     icon: 'heart',
     title: 'Cultural Values',
-    desc: 'Encouraging a deeper appreciation for India\'s rich classical traditions and storytelling heritage.',
+    desc: "Encouraging a deeper appreciation for India's rich classical traditions and storytelling heritage.",
   },
   {
     icon: 'stage',
