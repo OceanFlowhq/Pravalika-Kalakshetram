@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaInstagram, FaFacebookF } from 'react-icons/fa';
 import { SITE, NAV_LINKS } from '../data/siteData';
-import logoImg from '../assets/logo.png';
+
 
 export default function Footer() {
   return (
@@ -43,8 +43,21 @@ export default function Footer() {
         }}>
           {/* Brand Column */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }} className="footer-brand-col">
-            <div style={{ marginBottom: '1.5rem', width: '100%', maxWidth: '420px' }} className="footer-logo-wrapper">
-              <img src={logoImg} alt="Pravalika Kuchipudi Kalakshetram Logo" style={{ width: '100%', height: 'auto', maxHeight: '200px', objectFit: 'contain', objectPosition: 'left center', display: 'block', filter: 'invert(1)' }} className="footer-logo-img" />
+            <div style={{ marginBottom: '1.5rem' }} className="footer-logo-wrapper">
+              <img
+                src="/footer.png"
+                alt="Pravalika Kuchipudi Kalakshetram Logo"
+                className="footer-logo-img"
+                style={{
+                  width: '340px',
+                  maxWidth: '100%',
+                  height: 'auto',
+                  display: 'block',
+                  objectFit: 'contain',
+                  objectPosition: 'left center',
+                  imageRendering: 'high-quality',
+                }}
+              />
             </div>
             <p style={{
               fontFamily: 'var(--font-body)',
@@ -202,10 +215,13 @@ export default function Footer() {
         </div>
       </div>
       <style>{`
+        @media (max-width: 1024px) {
+          .footer-logo-img { width: 280px !important; }
+        }
         @media (max-width: 640px) {
           .footer-brand-col { align-items: center !important; text-align: center; }
           .footer-logo-wrapper { display: flex; justify-content: center; }
-          .footer-logo-img { object-position: center !important; }
+          .footer-logo-img { width: 230px !important; object-position: center !important; }
         }
       `}</style>
     </footer>

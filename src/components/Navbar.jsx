@@ -45,7 +45,7 @@ export default function Navbar() {
         <div style={{
           maxWidth: '1400px',
           margin: '0 auto',
-          padding: '0 2rem',
+          padding: '0 1rem',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -53,7 +53,7 @@ export default function Navbar() {
           transition: 'height 0.4s ease',
         }}>
           {/* Logo */}
-          <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', marginRight: 'auto', marginLeft: '20px', flexShrink: 0, height: '100%', padding: '0.4rem 0' }}>
+          <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', flexShrink: 0, height: '100%', padding: '0.4rem 0' }}>
             <img src={logoImg} alt="Pravalika Kuchipudi Kalakshetram Logo" className="nav-logo" style={{ width: 'auto', objectFit: 'contain', display: 'block', mixBlendMode: 'multiply', transform: 'scale(2.6)', transformOrigin: 'left center' }} />
           </Link>
 
@@ -269,8 +269,14 @@ export default function Navbar() {
         .hamburger-btn:active { transform: scale(0.95); }
         @media (max-width: 900px) {
           .hidden-mobile { display: none !important; }
-          .show-mobile { display: flex !important; align-items: center; justify-content: center; }
-          .nav-logo { max-height: 44px; }
+          .show-mobile { display: flex !important; align-items: center; justify-content: center; z-index: 10; }
+          .nav-logo { max-height: 44px; transform: scale(2.2) !important; transform-origin: left center !important; }
+        }
+        @media (max-width: 480px) {
+          .nav-logo { max-height: 38px; transform: scale(1.8) !important; }
+        }
+        @media (max-width: 360px) {
+          .nav-logo { max-height: 32px; transform: scale(1.6) !important; }
         }
       `}</style>
     </>

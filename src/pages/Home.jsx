@@ -94,20 +94,13 @@ function HeroSection() {
         </motion.div>
       </div>
 
-      <motion.div
-        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1.6 }}
-        style={{ position: 'absolute', bottom: '1.8rem', left: '50%', transform: 'translateX(-50%)', zIndex: 3 }}
-      >
-        <div className="hero-video-scroll-mouse"><div className="hero-video-scroll-wheel" /></div>
-      </motion.div>
+
 
       <style>{`
         .hero-video-section { background: #000; }
         .hero-video-btn-outline { border-color: rgba(255,255,255,0.4) !important; color: rgba(255,255,255,0.85) !important; }
         .hero-video-btn-outline:hover { border-color: #D4A017 !important; color: #D4A017 !important; }
-        .hero-video-scroll-mouse { width: 22px; height: 34px; border: 1.5px solid rgba(255,255,255,0.4); border-radius: 12px; display: flex; justify-content: center; padding-top: 5px; }
-        .hero-video-scroll-wheel { width: 3px; height: 7px; background: rgba(212,160,23,0.85); border-radius: 2px; animation: hero-wheel-scroll 1.8s ease-in-out infinite; }
-        @keyframes hero-wheel-scroll { 0% { opacity: 1; transform: translateY(0); } 60% { opacity: 0; transform: translateY(10px); } 61% { opacity: 0; transform: translateY(0); } 100% { opacity: 1; transform: translateY(0); } }
+
         @media (max-width: 768px) {
           .hero-video-section { height: 100svh; min-height: 500px; }
           .hero-video-content { left: 0 !important; right: 0 !important; max-width: 100% !important; padding: 0 1.25rem !important; text-align: center !important; align-items: center !important; bottom: 5.5rem !important; }
@@ -179,10 +172,10 @@ function WhyChooseUs() {
 
       {/* Hanging bells — top */}
       <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '3rem', zIndex: 0, pointerEvents: 'none' }}>
-        {[0,1,2].map(i => (
+        {[0, 1, 2].map(i => (
           <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <div style={{ width: '1px', height: `${32 + i * 12}px`, background: 'rgba(212,160,23,0.25)' }} />
-            <BellSVG width={18} height={28} opacity={0.18} className={`bell-swing-${i+1}`} />
+            <BellSVG width={18} height={28} opacity={0.18} className={`bell-swing-${i + 1}`} />
           </div>
         ))}
       </div>
@@ -414,11 +407,11 @@ function AcademyHighlights() {
             </div>
             <div className="heritage-frame" style={{ position: 'absolute', top: 0, left: '5%', width: '60%', height: '65%', overflow: 'hidden', boxShadow: '0 30px 80px rgba(0,0,0,0.12)', zIndex: 1 }}>
               <img src="/performance1.jpg" alt="Kuchipudi performance stage" style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                onError={e => { e.target.style.display='none'; e.target.parentElement.style.background='linear-gradient(135deg,#D4A017,#E8C547)'; e.target.parentElement.innerHTML=`<div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:4rem">🎭</div>`; }} />
+                onError={e => { e.target.style.display = 'none'; e.target.parentElement.style.background = 'linear-gradient(135deg,#D4A017,#E8C547)'; e.target.parentElement.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:4rem">🎭</div>`; }} />
             </div>
             <div className="heritage-frame" style={{ position: 'absolute', bottom: 0, right: '0%', width: '55%', height: '55%', overflow: 'hidden', boxShadow: '0 30px 80px rgba(0,0,0,0.12)', border: '4px solid #fff', zIndex: 1 }}>
               <img src="/performance2.jpg" alt="Classical dance workshop" style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                onError={e => { e.target.style.display='none'; e.target.parentElement.style.background='linear-gradient(135deg,#1A1A1A,#2D2D2D)'; e.target.parentElement.innerHTML=`<div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:4rem">🪔</div>`; }} />
+                onError={e => { e.target.style.display = 'none'; e.target.parentElement.style.background = 'linear-gradient(135deg,#1A1A1A,#2D2D2D)'; e.target.parentElement.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:4rem">🪔</div>`; }} />
             </div>
             {/* Corner dancer silhouette */}
             <div style={{ position: 'absolute', bottom: '10px', left: '0', pointerEvents: 'none', zIndex: 2, opacity: 0.15 }}>
@@ -486,8 +479,8 @@ function FeaturedPerformances() {
                     <img
                       src={`https://img.youtube.com/vi/${video.id}/mqdefault.jpg`} alt={video.title}
                       style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.82, transition: 'all 0.4s ease' }}
-                      onMouseEnter={e => { e.target.style.opacity='1'; e.target.style.transform='scale(1.05)'; }}
-                      onMouseLeave={e => { e.target.style.opacity='0.82'; e.target.style.transform='scale(1)'; }}
+                      onMouseEnter={e => { e.target.style.opacity = '1'; e.target.style.transform = 'scale(1.05)'; }}
+                      onMouseLeave={e => { e.target.style.opacity = '0.82'; e.target.style.transform = 'scale(1)'; }}
                     />
                     <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.2)' }}>
                       <div style={{ width: '54px', height: '54px', borderRadius: '50%', background: 'rgba(212,160,23,0.9)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: '1.2rem', boxShadow: '0 0 30px rgba(212,160,23,0.5)' }}>▶</div>
