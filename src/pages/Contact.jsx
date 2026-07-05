@@ -3,11 +3,12 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaWhatsapp } from 'react-icons/fa';
 import { SITE } from '../data/siteData';
-import FloatingParticles from '../components/FloatingParticles';
 import {
-  MandalaSVG, LotusSVG, BellSVG, CornerOrnamentSVG, OrnamentalDivider,
-  HeritagePatternBg, DancerSilhouetteSVG, TempleSVG, PeacockFeatherSVG,
+  MandalaSVG, LotusSVG, CornerOrnamentSVG,
+  HeritagePatternBg, OrnamentalDivider,
+  DancerSilhouetteSVG, PeacockFeatherSVG,
 } from '../components/HeritageDecor';
+
 
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
@@ -69,69 +70,68 @@ Official Academy Website
 
   return (
     <>
-      {/* ── Hero ─────────────────────────────────────────────────────────── */}
-      <section className="heritage-section-dark" style={{
-        minHeight: '56vh',
-        display: 'flex', alignItems: 'center',
-        paddingTop: '110px', paddingBottom: '4rem',
-        position: 'relative', overflow: 'hidden',
-      }}>
-        <HeritagePatternBg color="#D4A017" opacity={0.022} />
-        <FloatingParticles count={12} color="rgba(212,160,23," />
+      {/* ══════════════════════════════════════════════════════════
+          CONTACT HERO  –  artwork: public/contact.png
+          ══════════════════════════════════════════════════════════ */}
+      <section
+        id="contact-hero"
+        aria-label="Contact hero"
+        style={{
+          position: 'relative',
+          overflow: 'hidden',
+          /* Navbar height offset so the artwork starts right below the bar */
+          marginTop: '0',
+          background: '#0B0B0B',
+          lineHeight: 0,          /* removes phantom gap beneath inline img */
+        }}
+      >
+        {/* ── The approved artwork ── */}
+        <motion.div
+          initial={{ opacity: 0, scale: 1.03 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+          style={{ display: 'block', width: '100%', lineHeight: 0 }}
+        >
+          <img
+            src="/contact.png"
+            alt="Contact – Pravalika Kuchipudi Kalakshetram hero artwork"
+            loading="lazy"
+            style={{
+              display: 'block',
+              width: '100%',
+              /* Natural height on desktop; fixed window-height crop on mobile */
+              height: '100vh',
+              paddingTop: '63px',
+              maxWidth: '100%',
+              objectFit: 'cover',
+              /* Keep the dancer's face visible on narrow screens */
+              objectPosition: 'center top',
+              /* Crisp render – no blurring */
+              imageRendering: 'auto',
+            }}
+          />
+        </motion.div>
 
-        {/* Pravalika heritage contact art — right side, clearly visible */}
-        <div style={{ position: 'absolute', top: 0, right: 0, width: '55%', height: '100%', backgroundImage: 'url(/pravalika-heritage-contact.png)', backgroundSize: 'cover', backgroundPosition: 'center top', opacity: 0.5, pointerEvents: 'none', zIndex: 0 }} />
-        {/* Soft fade from left so text area stays readable */}
-        <div style={{ position: 'absolute', top: 0, left: 0, width: '50%', height: '100%', background: 'linear-gradient(to right, #0D0D0D 70%, transparent)', pointerEvents: 'none', zIndex: 0 }} />
-        {/* Dark vignette right edge */}
-        <div style={{ position: 'absolute', top: 0, right: 0, width: '20%', height: '100%', background: 'linear-gradient(to left, #0D0D0D 0%, transparent)', pointerEvents: 'none', zIndex: 0 }} />
-
-        {/* Large mandala center-right */}
-        <div style={{ position: 'absolute', top: '50%', right: '-60px', transform: 'translateY(-50%)', pointerEvents: 'none', zIndex: 0 }}>
-          <MandalaSVG size={380} opacity={0.08} className="mandala-spin-reverse" />
-        </div>
-
-        {/* Corner ornaments */}
-        <CornerOrnamentSVG size={85} opacity={0.18} style={{ position: 'absolute', top: '80px', left: '1.5rem', pointerEvents: 'none', zIndex: 0 }} />
-        <CornerOrnamentSVG size={85} opacity={0.18} flip style={{ position: 'absolute', bottom: '1.5rem', right: '1.5rem', pointerEvents: 'none', zIndex: 0 }} />
-
-        {/* Hanging bells left */}
-        <div style={{ position: 'absolute', top: '80px', left: '12%', display: 'flex', gap: '3rem', pointerEvents: 'none', zIndex: 0 }}>
-          {[0,1,2].map(i => (
-            <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <div style={{ width: '1px', height: `${24 + i*12}px`, background: 'rgba(212,160,23,0.22)' }} />
-              <BellSVG width={14} height={22} opacity={0.2} className={`bell-swing-${i+1}`} />
-            </div>
-          ))}
-        </div>
-
-        {/* Dancer silhouette right side */}
-        <div style={{ position: 'absolute', right: '5%', bottom: 0, pointerEvents: 'none', zIndex: 0 }}>
-          <DancerSilhouetteSVG width={80} height={140} color="#D4A017" opacity={0.1} />
-        </div>
-
-        <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 2rem', position: 'relative', zIndex: 1 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
-            <LotusSVG size={22} color="#D4A017" opacity={0.8} />
-            <p style={{ fontFamily: 'var(--font-cinzel)', fontSize: '0.65rem', letterSpacing: '0.3em', color: 'var(--gold)', textTransform: 'uppercase', margin: 0 }}>✦ Connect With Us ✦</p>
-          </div>
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}
-            style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 700, color: '#FFFFFF', lineHeight: 1.15, maxWidth: '700px', marginBottom: '1.5rem' }}
-          >
-            Begin Your Journey With a Conversation
-          </motion.h1>
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}
-            style={{ width: '60px', height: '2px', background: 'linear-gradient(135deg, #D4A017, #E8C547)', marginBottom: '1.5rem' }} />
-          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
-            style={{ fontFamily: 'var(--font-body)', fontSize: '1rem', lineHeight: 1.9, color: 'rgba(255,255,255,0.55)', maxWidth: '580px' }}
-          >
-            Reach out to Guru Pravalika Kuppili to learn more about Kuchipudi, schedule a visit, or connect with the academy.
-          </motion.p>
-        </div>
-
-        {/* Bottom gold strip */}
-        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg, transparent, rgba(212,160,23,0.4) 30%, rgba(212,160,23,0.6) 50%, rgba(212,160,23,0.4) 70%, transparent)' }} />
+        {/* ── Responsive overrides via inline <style> ── */}
+        <style>{`
+          /* Tablet: cap height so page doesn't feel too tall */
+          @media (max-width: 1024px) {
+            #contact-hero img {
+              max-height: 80vh;
+              object-fit: cover;
+              object-position: center top;
+            }
+          }
+          /* Mobile: show a portrait crop; face stays visible */
+          @media (max-width: 640px) {
+            #contact-hero img {
+              height: 100vw;          /* square-ish crop */
+              max-height: 520px;
+              object-fit: cover;
+              object-position: 65% top; /* shift slightly right so dancer stays centred */
+            }
+          }
+        `}</style>
       </section>
 
       {/* ── Main Contact Section ─────────────────────────────────────────── */}

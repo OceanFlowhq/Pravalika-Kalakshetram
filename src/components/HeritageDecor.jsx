@@ -24,7 +24,7 @@ export function MandalaSVG({ size = 320, color = '#D4A017', opacity = 0.07, clas
         <circle cx="100" cy="100" r="16" />
         <circle cx="100" cy="100" r="6" />
         {/* 8-point star petals outer */}
-        {[0,45,90,135,180,225,270,315].map(a => {
+        {[0, 45, 90, 135, 180, 225, 270, 315].map(a => {
           const rad = (a * Math.PI) / 180;
           const x1 = 100 + 95 * Math.cos(rad);
           const y1 = 100 + 95 * Math.sin(rad);
@@ -40,26 +40,26 @@ export function MandalaSVG({ size = 320, color = '#D4A017', opacity = 0.07, clas
           );
         })}
         {/* 16-point radial lines inner */}
-        {Array.from({length:16},(_,i)=>{
-          const a = i*(360/16);
-          const rad = (a*Math.PI)/180;
-          return <line key={i} x1={100+28*Math.cos(rad)} y1={100+28*Math.sin(rad)} x2={100+50*Math.cos(rad)} y2={100+50*Math.sin(rad)} strokeWidth="0.4" key={i}/>;
+        {Array.from({ length: 16 }, (_, i) => {
+          const a = i * (360 / 16);
+          const rad = (a * Math.PI) / 180;
+          return <line key={i} x1={100 + 28 * Math.cos(rad)} y1={100 + 28 * Math.sin(rad)} x2={100 + 50 * Math.cos(rad)} y2={100 + 50 * Math.sin(rad)} strokeWidth="0.4" />;
         })}
         {/* Lotus petals inner ring */}
-        {[0,45,90,135,180,225,270,315].map(a => {
+        {[0, 45, 90, 135, 180, 225, 270, 315].map(a => {
           const rad = (a * Math.PI) / 180;
           const cx = 100 + 44 * Math.cos(rad);
           const cy = 100 + 44 * Math.sin(rad);
           return <ellipse key={a} cx={cx} cy={cy} rx="7" ry="12" transform={`rotate(${a} ${cx} ${cy})`} />;
         })}
         {/* Diamond accents */}
-        {[22.5,67.5,112.5,157.5,202.5,247.5,292.5,337.5].map(a => {
+        {[22.5, 67.5, 112.5, 157.5, 202.5, 247.5, 292.5, 337.5].map(a => {
           const rad = (a * Math.PI) / 180;
           const cx = 100 + 72 * Math.cos(rad);
           const cy = 100 + 72 * Math.sin(rad);
           return (
             <polygon key={a}
-              points={`${cx},${cy-5} ${cx+4},${cy} ${cx},${cy+5} ${cx-4},${cy}`}
+              points={`${cx},${cy - 5} ${cx + 4},${cy} ${cx},${cy + 5} ${cx - 4},${cy}`}
               transform={`rotate(${a} ${cx} ${cy})`}
             />
           );
@@ -89,28 +89,28 @@ export function TempleSVG({ width = 260, height = 340, color = '#D4A017', opacit
         <rect x="76" y="136" width="108" height="14" rx="1" />
         <rect x="70" y="150" width="120" height="16" rx="1" />
         {/* Decorative notches on tiers */}
-        {[42,56,70,84,98,112,126,140].map((y, i) => (
+        {[42, 56, 70, 84, 98, 112, 126, 140].map((y, i) => (
           <g key={i}>
-            <rect x={118-i*6+4} y={y} width="4" height="4" opacity="0.6" />
+            <rect x={118 - i * 6 + 4} y={y} width="4" height="4" opacity="0.6" />
             <rect x={130} y={y} width="4" height="4" opacity="0.6" />
-            <rect x={118+i*6+4} y={y} width="4" height="4" opacity="0.6" />
+            <rect x={118 + i * 6 + 4} y={y} width="4" height="4" opacity="0.6" />
           </g>
         ))}
         {/* Main hall */}
         <rect x="60" y="166" width="140" height="60" rx="2" />
         {/* Pillars */}
-        {[72,94,116,138,160,182].map(x => (
+        {[72, 94, 116, 138, 160, 182].map(x => (
           <g key={x}>
             <rect x={x} y="170" width="10" height="52" rx="2" />
-            <rect x={x-2} y="170" width="14" height="6" rx="1" />
-            <rect x={x-2} y="216" width="14" height="6" rx="1" />
+            <rect x={x - 2} y="170" width="14" height="6" rx="1" />
+            <rect x={x - 2} y="216" width="14" height="6" rx="1" />
           </g>
         ))}
         {/* Arch */}
-        <path d="M 85 166 Q 130 148 175 166" fill="none" stroke={color} strokeWidth="2" opacity={opacity*8} />
+        <path d="M 85 166 Q 130 148 175 166" fill="none" stroke={color} strokeWidth="2" opacity={opacity * 8} />
         {/* Entrance */}
-        <rect x="110" y="196" width="40" height="30" rx="3" fill="none" stroke={color} strokeWidth="1.5" opacity={opacity*8}/>
-        <path d="M 110 196 Q 130 184 150 196" fill="none" stroke={color} strokeWidth="1.5" opacity={opacity*8} />
+        <rect x="110" y="196" width="40" height="30" rx="3" fill="none" stroke={color} strokeWidth="1.5" opacity={opacity * 8} />
+        <path d="M 110 196 Q 130 184 150 196" fill="none" stroke={color} strokeWidth="1.5" opacity={opacity * 8} />
         {/* Steps */}
         <rect x="50" y="226" width="160" height="8" rx="1" />
         <rect x="40" y="234" width="180" height="8" rx="1" />
@@ -129,18 +129,18 @@ export function LotusSVG({ size = 120, color = '#D4A017', opacity = 0.1, style =
     <svg width={size} height={size} viewBox="0 0 120 120" style={{ display: 'block', ...style }} aria-hidden="true">
       <g opacity={opacity} fill={color}>
         {/* Outer petals */}
-        {[0,45,90,135,180,225,270,315].map(a => {
+        {[0, 45, 90, 135, 180, 225, 270, 315].map(a => {
           const rad = (a * Math.PI) / 180;
           const cx = 60 + 38 * Math.cos(rad);
           const cy = 60 + 38 * Math.sin(rad);
-          return <ellipse key={a} cx={cx} cy={cy} rx="10" ry="22" transform={`rotate(${a+90} ${cx} ${cy})`} />;
+          return <ellipse key={a} cx={cx} cy={cy} rx="10" ry="22" transform={`rotate(${a + 90} ${cx} ${cy})`} />;
         })}
         {/* Middle petals */}
-        {[22.5,67.5,112.5,157.5,202.5,247.5,292.5,337.5].map(a => {
+        {[22.5, 67.5, 112.5, 157.5, 202.5, 247.5, 292.5, 337.5].map(a => {
           const rad = (a * Math.PI) / 180;
           const cx = 60 + 24 * Math.cos(rad);
           const cy = 60 + 24 * Math.sin(rad);
-          return <ellipse key={a} cx={cx} cy={cy} rx="7" ry="16" transform={`rotate(${a+90} ${cx} ${cy})`} />;
+          return <ellipse key={a} cx={cx} cy={cy} rx="7" ry="16" transform={`rotate(${a + 90} ${cx} ${cy})`} />;
         })}
         {/* Inner circle */}
         <circle cx="60" cy="60" r="10" />
@@ -169,9 +169,9 @@ export function BellSVG({ width = 60, height = 90, color = '#D4A017', opacity = 
         <line x1="30" y1="30" x2="30" y2="78" strokeWidth="1.2" strokeDasharray="2 2" />
         <circle cx="30" cy="80" r="3" />
         {/* Decorative dots */}
-        {[22.5,67.5,112.5,157.5,202.5,247.5,292.5,337.5].map((a,i) => {
+        {[22.5, 67.5, 112.5, 157.5, 202.5, 247.5, 292.5, 337.5].map((a, i) => {
           const rad = (a * Math.PI) / 180;
-          return <circle key={i} cx={30 + 12*Math.cos(rad)} cy={30 + 4*Math.sin(rad)} r="1" />;
+          return <circle key={i} cx={30 + 12 * Math.cos(rad)} cy={30 + 4 * Math.sin(rad)} r="1" />;
         })}
       </g>
     </svg>
@@ -191,16 +191,16 @@ export function PeacockFeatherSVG({ width = 60, height = 200, color = '#D4A017',
         <ellipse cx="30" cy="22" rx="6" ry="8" stroke={color} fill={color} fillOpacity="0.3" />
         <circle cx="30" cy="22" r="3" fill={color} />
         {/* Barbs left side */}
-        {Array.from({length:20},(_,i)=>{
-          const y = 35 + i*7;
+        {Array.from({ length: 20 }, (_, i) => {
+          const y = 35 + i * 7;
           const len = 6 + i * 0.8;
-          return <path key={i} d={`M 30 ${y} Q ${30-len*0.6} ${y-2} ${30-len} ${y+3}`} strokeWidth="0.6" />;
+          return <path key={i} d={`M 30 ${y} Q ${30 - len * 0.6} ${y - 2} ${30 - len} ${y + 3}`} strokeWidth="0.6" />;
         })}
         {/* Barbs right side */}
-        {Array.from({length:20},(_,i)=>{
-          const y = 35 + i*7;
+        {Array.from({ length: 20 }, (_, i) => {
+          const y = 35 + i * 7;
           const len = 6 + i * 0.8;
-          return <path key={i} d={`M 30 ${y} Q ${30+len*0.6} ${y-2} ${30+len} ${y+3}`} strokeWidth="0.6" />;
+          return <path key={i} d={`M 30 ${y} Q ${30 + len * 0.6} ${y - 2} ${30 + len} ${y + 3}`} strokeWidth="0.6" />;
         })}
       </g>
     </svg>
@@ -274,11 +274,11 @@ export function CornerOrnamentSVG({ size = 100, color = '#D4A017', opacity = 0.1
         <ellipse cx="5" cy="20" rx="4" ry="7" />
         <ellipse cx="15" cy="15" rx="6" ry="6" />
         {/* Chain dots along edges */}
-        {Array.from({length:8},(_,i)=>
-          <circle key={i} cx={5} cy={28+i*8} r="1" fill={color} />
+        {Array.from({ length: 8 }, (_, i) =>
+          <circle key={i} cx={5} cy={28 + i * 8} r="1" fill={color} />
         )}
-        {Array.from({length:8},(_,i)=>
-          <circle key={i} cx={28+i*8} cy={5} r="1" fill={color} />
+        {Array.from({ length: 8 }, (_, i) =>
+          <circle key={i} cx={28 + i * 8} cy={5} r="1" fill={color} />
         )}
       </g>
     </svg>
@@ -335,7 +335,7 @@ export function BorderPatternSVG({ width = '100%', height = 24, color = '#D4A017
 
 // ── Geometric Heritage Pattern (tiled background fill) ────────────────────────
 export function HeritagePatternBg({ color = '#D4A017', opacity = 0.04, style = {} }) {
-  const patternId = `hp-${Math.random().toString(36).slice(2,7)}`;
+  const patternId = `hp-${Math.random().toString(36).slice(2, 7)}`;
   return (
     <svg
       style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 0, ...style }}

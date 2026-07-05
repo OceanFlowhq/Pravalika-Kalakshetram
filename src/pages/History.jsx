@@ -8,70 +8,427 @@ import {
   DancerSilhouetteSVG, CornerOrnamentSVG, OrnamentalDivider, HeritagePatternBg,
 } from '../components/HeritageDecor';
 
+/* ─────────────────────────────────────────────────────────────────────── */
+
 export default function History() {
   return (
     <>
-      {/* ── Hero ─────────────────────────────────────────────────────────── */}
-      <section className="heritage-papyrus" style={{
-        minHeight: '62vh',
-        display: 'flex', alignItems: 'center',
-        paddingTop: '110px', paddingBottom: '4rem',
-        position: 'relative', overflow: 'hidden',
-      }}>
-        <HeritagePatternBg color="#D4A017" opacity={0.035} />
+      {/* ══════════════════════════════════════════════════════════════════
+          HERO  —  Premium seamless heritage composition
+          The artwork is the page. The page is the artwork.
+      ══════════════════════════════════════════════════════════════════ */}
+      <section className="hist-hero" aria-label="Kuchipudi Heritage Hero">
 
-        {/* Pravalika heritage portrait — right side, subtle */}
-        <div style={{ position: 'absolute', top: 0, right: 0, width: '55%', height: '100%', backgroundImage: 'url(/pravalika-heritage-history.png)', backgroundSize: 'cover', backgroundPosition: 'center right', opacity: 0.17, pointerEvents: 'none', zIndex: 0 }} />
-        <div style={{ position: 'absolute', top: 0, left: 0, width: '58%', height: '100%', background: 'linear-gradient(to right, #F2E5C5 55%, transparent)', pointerEvents: 'none', zIndex: 0 }} />
+        {/* ── LAYER 0 — Warm parchment base ────────────────────────────── */}
+        <div className="hist-base" aria-hidden="true" />
 
-        {/* Temple silhouette — left background */}
-        <div style={{ position: 'absolute', right: 0, bottom: 0, pointerEvents: 'none', zIndex: 0 }}>
-          <TempleSVG width={220} height={290} opacity={0.06} />
+        {/* ── LAYER 1 — Heritage artwork (CSS-masked, multiply-blended) ── */}
+        {/*   The mask-image dissolves the art into cream on the left,     */}
+        {/*   so no rectangle or hard edge ever appears.                   */}
+        <div className="hist-art-wrap" aria-hidden="true">
+          <img src="/history-hero-bg.png" alt="" className="hist-art-img" />
         </div>
 
-        {/* Large background mandala */}
-        <div style={{ position: 'absolute', top: '-60px', right: '-60px', pointerEvents: 'none', zIndex: 0 }}>
-          <MandalaSVG size={340} opacity={0.06} className="mandala-spin-reverse" />
+        {/* ── LAYER 2 — Atmospheric veil stack ─────────────────────────── */}
+        {/* 2a. Left parchment fog — the primary "paint-in" effect */}
+        <div className="hist-veil-left"   aria-hidden="true" />
+        {/* 2b. Radial atmospheric glow around text area */}
+        <div className="hist-veil-radial" aria-hidden="true" />
+        {/* 2c. Top edge dissolve */}
+        <div className="hist-veil-top"    aria-hidden="true" />
+        {/* 2d. Bottom edge dissolve */}
+        <div className="hist-veil-bottom" aria-hidden="true" />
+        {/* 2e. Right-edge vignette — tones down far-right clipping */}
+        <div className="hist-veil-right"  aria-hidden="true" />
+
+        {/* ── LAYER 3 — Ghost SVG depth elements ───────────────────────── */}
+        {/* Spinning mandala — very faint, adds ancient texture behind text */}
+        <div className="hist-ghost-mandala" aria-hidden="true">
+          <MandalaSVG size={500} opacity={0.042} className="mandala-spin" />
         </div>
+        {/* Tiling heritage grid */}
+        <HeritagePatternBg color="#C49A0A" opacity={0.018} />
 
-        {/* Corner ornaments */}
-        <CornerOrnamentSVG size={85} opacity={0.14} style={{ position: 'absolute', top: '80px', left: '1.5rem', pointerEvents: 'none', zIndex: 0 }} />
-        <CornerOrnamentSVG size={85} opacity={0.14} flip style={{ position: 'absolute', bottom: '1.5rem', right: '1.5rem', pointerEvents: 'none', zIndex: 0 }} />
+        {/* Filigree corner accents */}
+        <CornerOrnamentSVG
+          size={72}
+          opacity={0.16}
+          style={{ position:'absolute', top:'84px', left:'14px', zIndex:4, pointerEvents:'none' }}
+        />
+        <CornerOrnamentSVG
+          size={56}
+          opacity={0.09}
+          flip
+          style={{ position:'absolute', bottom:'6px', right:'6px', zIndex:4, pointerEvents:'none' }}
+        />
 
-        {/* Hanging bells */}
-        <div style={{ position: 'absolute', top: '80px', right: '8%', display: 'flex', gap: '2.5rem', pointerEvents: 'none', zIndex: 0 }}>
-          {[0,1].map(i => (
-            <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <div style={{ width: '1px', height: `${28 + i*14}px`, background: 'rgba(212,160,23,0.25)' }} />
-              <BellSVG width={16} height={26} opacity={0.16} className={`bell-swing-${i+1}`} />
-            </div>
-          ))}
-        </div>
+        {/* Floating gold dust */}
+        <FloatingParticles count={5} />
 
-        <FloatingParticles count={10} />
+        {/* ── LAYER 4 — Typography (floats above all layers) ───────────── */}
+        <div className="hist-content-wrap">
+          <div className="hist-text-col">
 
-        <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 2rem', position: 'relative', zIndex: 1 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
-            <LotusSVG size={22} opacity={0.7} />
-            <p style={{ fontFamily: 'var(--font-cinzel)', fontSize: '0.65rem', letterSpacing: '0.3em', color: 'var(--gold)', textTransform: 'uppercase', margin: 0 }}>✦ The Legacy ✦</p>
+            {/* ✦ THE LEGACY ✦ */}
+            <motion.div
+              className="hist-eyebrow"
+              initial={{ opacity:0, y:12 }}
+              animate={{ opacity:1, y:0 }}
+              transition={{ duration:0.55, delay:0.06 }}
+            >
+              <svg width="13" height="13" viewBox="0 0 120 120" aria-hidden="true"
+                   style={{ opacity:0.82, flexShrink:0 }}>
+                <g fill="#B8860B">
+                  {[0,45,90,135,180,225,270,315].map(a => {
+                    const r = (a * Math.PI) / 180;
+                    const cx = 60 + 34*Math.cos(r), cy = 60 + 34*Math.sin(r);
+                    return <ellipse key={a} cx={cx} cy={cy} rx="9" ry="18"
+                                    transform={`rotate(${a+90} ${cx} ${cy})`}/>;
+                  })}
+                  <circle cx="60" cy="60" r="10"/>
+                </g>
+              </svg>
+              <span className="hist-eyebrow-text">✦&nbsp;&nbsp;The Legacy&nbsp;&nbsp;✦</span>
+            </motion.div>
+
+            {/* "The Ancient Story of" */}
+            <motion.h1
+              className="hist-h1-plain"
+              initial={{ opacity:0, y:22 }}
+              animate={{ opacity:1, y:0 }}
+              transition={{ duration:0.72, delay:0.15 }}
+            >
+              The Ancient Story of
+            </motion.h1>
+
+            {/* "Kuchipudi" */}
+            <motion.h1
+              className="hist-h1-gold"
+              initial={{ opacity:0, y:22 }}
+              animate={{ opacity:1, y:0 }}
+              transition={{ duration:0.72, delay:0.28 }}
+            >
+              Kuchipudi
+            </motion.h1>
+
+            {/* Gold rule */}
+            <motion.div
+              className="hist-rule"
+              initial={{ opacity:0, scaleX:0 }}
+              animate={{ opacity:1, scaleX:1 }}
+              transition={{ duration:0.52, delay:0.42, ease:'easeOut' }}
+            />
+
+            {/* Body paragraph */}
+            <motion.p
+              className="hist-para"
+              initial={{ opacity:0, y:14 }}
+              animate={{ opacity:1, y:0 }}
+              transition={{ duration:0.65, delay:0.54 }}
+            >
+              Kuchipudi is more than a dance form — it is a
+              civilizational memory, preserved across centuries
+              in the sacred soil of Andhra Pradesh. Discover the
+              extraordinary journey of this divine art from
+              ancient temples to global stages.
+            </motion.p>
+
           </div>
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}
-            style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', fontWeight: 700, color: 'var(--dark)', lineHeight: 1.15, maxWidth: '700px', marginBottom: '1.5rem' }}
-          >
-            The Ancient Story of <em style={{ color: 'var(--gold)' }}>Kuchipudi</em>
-          </motion.h1>
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}
-            style={{ width: '60px', height: '2px', background: 'linear-gradient(135deg, #D4A017, #E8C547)', marginBottom: '1.5rem' }} />
-          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
-            style={{ fontFamily: 'var(--font-body)', fontSize: '1rem', lineHeight: 1.9, color: 'var(--secondary)', maxWidth: '600px' }}
-          >
-            Kuchipudi is more than a dance form — it is a civilizational memory, preserved across centuries in the sacred soil of Andhra Pradesh. Discover the extraordinary journey of this divine art from ancient temples to global stages.
-          </motion.p>
         </div>
 
-        {/* Bottom gold border strip */}
-        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg, transparent, rgba(212,160,23,0.4) 30%, rgba(212,160,23,0.6) 50%, rgba(212,160,23,0.4) 70%, transparent)' }} />
+        {/* Subtle gold bottom line */}
+        <div className="hist-bottom-rule" aria-hidden="true" />
+
+        {/* ══ ALL SCOPED CSS FOR THE HERO ══════════════════════════════ */}
+        <style>{`
+          @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600;1,700&display=swap');
+
+          /* ─── ROOT ─────────────────────────────────────────────── */
+          .hist-hero {
+            position: relative;
+            min-height: 91vh;
+            display: flex;
+            align-items: center;
+            padding-top: 88px;
+            overflow: hidden;
+          }
+
+          /* ─── L0 PARCHMENT BASE ─────────────────────────────────── */
+          .hist-base {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background:
+              radial-gradient(ellipse at 10% 28%, rgba(212,160,23,0.09) 0%, transparent 52%),
+              radial-gradient(ellipse at 80% 72%, rgba(180,130,10,0.07) 0%, transparent 48%),
+              linear-gradient(160deg,
+                #F9F3E5 0%,
+                #F5EBCF 28%,
+                #EEE0B0 58%,
+                #F4EAD0 100%
+              );
+          }
+
+          /* ─── L1 ARTWORK ─────────────────────────────────────────── */
+          /*
+            Full-bleed: image covers the entire hero.
+            object-position: right center  →  crops to the right half
+            vertically centred, so the temple (centre of image) is fully
+            visible and the blank-parchment left side of the image is
+            cropped out — the CSS mask then dissolves what remains.
+          */
+          .hist-art-wrap {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+          }
+          .hist-art-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: right 18%;
+            display: block;
+            mix-blend-mode: multiply;
+            filter: contrast(0.84) saturate(0.68) sepia(0.07) brightness(1.15);
+            /* Fade from transparent on the left → fully opaque on the right */
+            -webkit-mask-image: linear-gradient(
+              to right,
+              transparent       0%,
+              transparent      28%,
+              rgba(0,0,0,0.06) 36%,
+              rgba(0,0,0,0.26) 44%,
+              rgba(0,0,0,0.60) 55%,
+              rgba(0,0,0,0.88) 66%,
+              black            78%
+            );
+            mask-image: linear-gradient(
+              to right,
+              transparent       0%,
+              transparent      28%,
+              rgba(0,0,0,0.06) 36%,
+              rgba(0,0,0,0.26) 44%,
+              rgba(0,0,0,0.60) 55%,
+              rgba(0,0,0,0.88) 66%,
+              black            78%
+            );
+          }
+
+          /* ─── L2 ATMOSPHERIC VEILS ──────────────────────────────── */
+
+          /* 2a — Left fog (cream bleeds over where art starts) */
+          .hist-veil-left {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+            background: linear-gradient(
+              to right,
+              #F5EBD0 0%,
+              #F5EBD0 20%,
+              rgba(245,235,208,0.97) 30%,
+              rgba(245,235,208,0.88) 40%,
+              rgba(245,235,208,0.62) 52%,
+              rgba(245,235,208,0.28) 63%,
+              rgba(245,235,208,0.08) 72%,
+              transparent           80%
+            );
+          }
+
+          /* 2b — Radial atmospheric glow centred on text */
+          .hist-veil-radial {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+            background: radial-gradient(
+              ellipse 58% 85% at 24% 48%,
+              rgba(245,235,208,0.40) 0%,
+              rgba(245,235,208,0.12) 50%,
+              transparent 100%
+            );
+          }
+
+          /* 2c — Top melt */
+          .hist-veil-top {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+            background: linear-gradient(
+              to bottom,
+              rgba(245,235,208,0.78) 0%,
+              rgba(245,235,208,0.28) 10%,
+              transparent 20%
+            );
+          }
+
+          /* 2d — Bottom melt */
+          .hist-veil-bottom {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 120px;
+            z-index: 2;
+            pointer-events: none;
+            background: linear-gradient(
+              to bottom,
+              transparent,
+              rgba(240,228,195,0.52)
+            );
+          }
+
+          /* 2e — Right edge softening */
+          .hist-veil-right {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+            background: linear-gradient(
+              to left,
+              rgba(232,218,175,0.26) 0%,
+              transparent 16%
+            );
+          }
+
+          /* ─── L3 GHOST SVG DEPTH ────────────────────────────────── */
+          .hist-ghost-mandala {
+            position: absolute;
+            top: 50%;
+            left: 2%;
+            transform: translateY(-50%);
+            z-index: 3;
+            pointer-events: none;
+          }
+
+          /* ─── L4 CONTENT ────────────────────────────────────────── */
+          .hist-content-wrap {
+            position: relative;
+            z-index: 5;
+            width: 100%;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 5.5rem 5rem;
+            /* Make content wrapper fill the full hero height vertically */
+            min-height: inherit;
+            display: flex;
+            align-items: center;
+          }
+
+          .hist-text-col {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            /* Wider column fills left half of the page, closing the gap */
+            max-width: 520px;
+            width: 42%;
+          }
+
+          /* Eyebrow */
+          .hist-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+          }
+          .hist-eyebrow-text {
+            font-family: 'Cinzel', serif;
+            font-size: 0.58rem;
+            letter-spacing: 0.28em;
+            color: #B8860B;
+            text-transform: uppercase;
+            font-weight: 500;
+          }
+
+          /* H1 line 1 — black serif */
+          .hist-h1-plain {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.1rem, 3.55vw, 3.85rem);
+            font-weight: 800;
+            color: #0e0e0e;
+            line-height: 1.09;
+            margin: 0 0 0.04rem 0;
+            letter-spacing: -0.016em;
+            white-space: nowrap;
+          }
+
+          /* H1 line 2 — italic gold */
+          .hist-h1-gold {
+            font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(2.75rem, 4.9vw, 5.2rem);
+            font-weight: 700;
+            line-height: 1.05;
+            margin: 0 0 1.5rem 0;
+            letter-spacing: 0.01em;
+            background: linear-gradient(130deg,
+              #7a4e06 0%,
+              #B8860B 24%,
+              #E8C547 50%,
+              #B8860B 76%,
+              #7a4e06 100%
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+          }
+
+          /* Gold rule */
+          .hist-rule {
+            width: 52px;
+            height: 2px;
+            background: linear-gradient(90deg, #8B6008, #E8C547 50%, #8B6008);
+            border-radius: 1px;
+            margin-bottom: 1.8rem;
+            transform-origin: left center;
+          }
+
+          /* Body */
+          .hist-para {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(0.82rem, 0.96vw, 0.94rem);
+            line-height: 1.95;
+            color: #3a3a3a;
+            max-width: 355px;
+            margin: 0;
+          }
+
+          /* Gold bottom rule */
+          .hist-bottom-rule {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 2px;
+            z-index: 6;
+            background: linear-gradient(
+              90deg,
+              transparent,
+              rgba(212,160,23,0.26) 18%,
+              rgba(212,160,23,0.58) 50%,
+              rgba(212,160,23,0.26) 82%,
+              transparent
+            );
+          }
+
+          /* ─── RESPONSIVE ────────────────────────────────────────── */
+
+          @media (max-width: 1100px) {
+            .hist-h1-plain  { font-size:clamp(1.85rem,3.1vw,3.1rem); white-space:normal; }
+            .hist-h1-gold   { font-size:clamp(2.35rem,4.2vw,4rem); }
+            .hist-text-col  { max-width:440px; width:46%; }
+            .hist-content-wrap { padding:0 3.5rem 4rem; }
+          }
+
+          @media (max-width: 720px) {
+            .hist-hero { min-height:auto; padding-top:76px; padding-bottom:2rem; }
+            .hist-content-wrap { padding:0 1.5rem 2.5rem; align-items:flex-start; }
+            .hist-text-col { max-width:100%; width:100%; }
+            .hist-h1-plain { font-size:clamp(1.7rem,6.5vw,2.5rem); white-space:normal; }
+            .hist-h1-gold  { font-size:clamp(2rem,8vw,3.1rem); }
+            .hist-para     { max-width:100%; font-size:0.88rem; }
+            .hist-art-img  {
+              object-position: 75% center;
+              filter: contrast(0.80) saturate(0.58) sepia(0.07) brightness(1.20) !important;
+            }
+          }
+        `}</style>
       </section>
 
       {/* ── Origin Intro ──────────────────────────────────────────────────── */}
@@ -281,7 +638,7 @@ export default function History() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1.5rem' }}>
             {[
               { stat: '2000+ Years', label: 'of Living Tradition' },
-              { stat: 'UNESCO', label: 'Intangible Heritage' },
+              { stat: 'UNESCO',      label: 'Intangible Heritage' },
               { stat: '40+ Countries', label: 'Global Presence' },
               { stat: '8 Classical', label: 'Forms of India' },
             ].map((item, i) => (

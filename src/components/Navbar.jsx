@@ -42,16 +42,17 @@ export default function Navbar() {
           boxShadow: '0 2px 24px rgba(212,160,23,0.08)',
         }}
       >
-        <div style={{
-          maxWidth: '1400px',
-          margin: '0 auto',
-          padding: '0 1rem',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          height: scrolled ? '68px' : '80px',
-          transition: 'height 0.4s ease',
-        }}>
+        <div className="navbar-container"
+          style={{
+            maxWidth: '1400px',
+            margin: '0 auto',
+            padding: '0 1rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            height: scrolled ? '68px' : '80px',
+            transition: 'height 0.4s ease',
+          }}>
           {/* Logo */}
           <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', flexShrink: 0, height: '100%', padding: '0.4rem 0' }}>
             <img src={logoImg} alt="Pravalika Kuchipudi Kalakshetram Logo" className="nav-logo" style={{ width: 'auto', objectFit: 'contain', display: 'block', mixBlendMode: 'multiply', transform: 'scale(2.6)', transformOrigin: 'left center' }} />
@@ -265,19 +266,63 @@ export default function Navbar() {
       </AnimatePresence>
 
       <style>{`
-        .nav-logo { max-height: 56px; }
-        .hamburger-btn:active { transform: scale(0.95); }
-        @media (max-width: 900px) {
-          .hidden-mobile { display: none !important; }
-          .show-mobile { display: flex !important; align-items: center; justify-content: center; z-index: 10; }
-          .nav-logo { max-height: 44px; transform: scale(2.2) !important; transform-origin: left center !important; }
-        }
-        @media (max-width: 480px) {
-          .nav-logo { max-height: 38px; transform: scale(1.8) !important; }
-        }
-        @media (max-width: 360px) {
-          .nav-logo { max-height: 32px; transform: scale(1.6) !important; }
-        }
+        .nav-logo {
+  max-height: 56px;
+}
+
+.hamburger-btn:active {
+  transform: scale(0.95);
+}
+
+@media (max-width: 900px) {
+
+  .navbar-container{
+    padding-left:8px !important;
+    padding-right:12px !important;
+  }
+
+  .hidden-mobile{
+    display:none !important;
+  }
+
+  .show-mobile{
+    display:flex !important;
+    align-items:center;
+    justify-content:center;
+    z-index:10;
+  }
+
+  .nav-logo{
+    max-height:44px;
+    transform:scale(2.0) !important;
+    transform-origin:left center !important;
+  }
+}
+
+@media (max-width:480px){
+
+  .navbar-container{
+    padding-left:4px !important;
+    padding-right:10px !important;
+  }
+
+  .nav-logo{
+    max-height:40px;
+    transform:scale(1.9) !important;
+  }
+}
+
+@media (max-width:360px){
+
+  .navbar-container{
+    padding-left:2px !important;
+  }
+
+  .nav-logo{
+    max-height:36px;
+    transform:scale(3.7) !important;
+  }
+}
       `}</style>
     </>
   );
