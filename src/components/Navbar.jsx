@@ -311,11 +311,11 @@ export default function Navbar() {
 @media (max-width:360px){
   .navbar-container{
     height: 76px !important;
-    padding-left:2px !important;
+    padding-left:1px !important;
   }
   .nav-logo{
-    height: 46px !important;
-    max-height: 46px !important;
+    height: 100px !important;
+    max-height: 120px !important;
   }
 }
       `}</style>
