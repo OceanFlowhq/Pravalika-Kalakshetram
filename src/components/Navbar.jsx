@@ -276,7 +276,7 @@ export default function Navbar() {
 
 @media (max-width: 900px) {
   .navbar-container{
-    height: 84px !important;
+    height: 92px !important;
     padding-left:8px !important;
     padding-right:12px !important;
   }
@@ -284,36 +284,38 @@ export default function Navbar() {
   .show-mobile{ display:flex !important; align-items:center; justify-content:center; z-index:10; }
   .nav-logo-link{
     height: 100% !important;
+    flex-shrink: 0 !important;
   }
   .nav-logo{
-    height: 50px;
-    max-height: 50px;
-    width: auto;
-    object-fit: contain;
+    height: 60px !important;
+    max-height: 60px !important;
+    width: auto !important;
+    object-fit: contain !important;
+    flex-shrink: 0 !important;
     transform: none !important;
   }
 }
 
 @media (max-width:480px){
   .navbar-container{
-    height: 76px !important;
+    height: 84px !important;
     padding-left:4px !important;
     padding-right:10px !important;
   }
   .nav-logo{
-    height: 44px;
-    max-height: 44px;
+    height: 52px !important;
+    max-height: 52px !important;
   }
 }
 
 @media (max-width:360px){
   .navbar-container{
-    height: 68px !important;
+    height: 76px !important;
     padding-left:2px !important;
   }
   .nav-logo{
-    height: 40px;
-    max-height: 40px;
+    height: 46px !important;
+    max-height: 46px !important;
   }
 }
       `}</style>
