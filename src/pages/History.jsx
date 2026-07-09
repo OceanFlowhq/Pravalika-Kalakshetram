@@ -417,8 +417,8 @@ export default function History() {
           }
 
           @media (max-width: 720px) {
-            .hist-hero { min-height:auto; padding-top:76px; padding-bottom:2rem; }
-            .hist-content-wrap { padding:0 1.5rem 2.5rem; align-items:flex-start; }
+            .hist-hero { min-height:auto; padding-top:92px; padding-bottom:2rem; }
+            .hist-content-wrap { padding:1rem 1.5rem 2.5rem; align-items:flex-start; }
             .hist-text-col { max-width:100%; width:100%; }
             .hist-h1-plain { font-size:clamp(1.7rem,6.5vw,2.5rem); white-space:normal; }
             .hist-h1-gold  { font-size:clamp(2rem,8vw,3.1rem); }

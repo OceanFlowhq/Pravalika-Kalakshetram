@@ -71,7 +71,7 @@ Official Academy Website
   return (
     <>
       {/* ══════════════════════════════════════════════════════════
-          CONTACT HERO  –  artwork: public/contact.png
+          CONTACT HERO  –  artwork: public/contact.png (desktop) / public/contact2.png (mobile)
           ══════════════════════════════════════════════════════════ */}
       <section
         id="contact-hero"
@@ -83,6 +83,7 @@ Official Academy Website
           marginTop: '0',
           background: '#0B0B0B',
           lineHeight: 0,          /* removes phantom gap beneath inline img */
+          maxWidth: '100vw',
         }}
       >
         {/* ── The approved artwork ── */}
@@ -90,9 +91,11 @@ Official Academy Website
           initial={{ opacity: 0, scale: 1.03 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.1, ease: [0.25, 0.46, 0.45, 0.94] }}
-          style={{ display: 'block', width: '100%', lineHeight: 0 }}
+          style={{ display: 'block', width: '100%', lineHeight: 0, overflow: 'hidden' }}
         >
+          {/* Desktop artwork — unchanged, hidden on mobile via CSS below */}
           <img
+            id="contact-hero-desktop-img"
             src="/contact.png"
             alt="Contact – Pravalika Kuchipudi Kalakshetram hero artwork"
             loading="lazy"
@@ -110,25 +113,62 @@ Official Academy Website
               imageRendering: 'auto',
             }}
           />
+          {/* Mobile-only artwork — shown ≤1024px in place of the desktop image */}
+          <img
+            id="contact-hero-mobile-img"
+            src="/contact2.png"
+            alt="Contact – Pravalika Kuchipudi Kalakshetram hero artwork (mobile)"
+            loading="lazy"
+            style={{
+              display: 'none',
+              width: '100%',
+              height: 'auto',
+              maxWidth: '100%',
+              objectFit: 'contain',
+              objectPosition: 'center center',
+              imageRendering: 'auto',
+            }}
+          />
         </motion.div>
 
         {/* ── Responsive overrides via inline <style> ── */}
         <style>{`
-          /* Tablet: cap height so page doesn't feel too tall */
+          /* Desktop (default): show desktop image, hide mobile image — unchanged appearance */
+          #contact-hero-mobile-img { display: none; }
+          #contact-hero-desktop-img { display: block; }
+
+          /* Tablet & Mobile: swap to contact2.png, full image visible, no crop, no horizontal overflow */
           @media (max-width: 1024px) {
-            #contact-hero img {
-              max-height: 80vh;
-              object-fit: cover;
-              object-position: center top;
+            #contact-hero {
+              overflow: hidden;
+              width: 100%;
+              max-width: 100%;
+              padding-bottom: 2.5rem !important;
+            }
+            #contact-hero-desktop-img { display: none !important; }
+            #contact-hero-mobile-img {
+              display: block !important;
+              width: 100% !important;
+              height: auto !important;
+              object-fit: contain !important;
+              object-position: center center !important;
+              padding-top: 100px !important;
             }
           }
-          /* Mobile: show a portrait crop; face stays visible */
           @media (max-width: 640px) {
-            #contact-hero img {
-              height: 100vw;          /* square-ish crop */
-              max-height: 520px;
-              object-fit: cover;
-              object-position: 65% top; /* shift slightly right so dancer stays centred */
+            #contact-hero {
+              padding-bottom: 2rem !important;
+            }
+            #contact-hero-mobile-img {
+              padding-top: 110px !important;
+            }
+          }
+          @media (max-width: 400px) {
+            #contact-hero {
+              padding-bottom: 1.5rem !important;
+            }
+            #contact-hero-mobile-img {
+              padding-top: 100px !important;
             }
           }
         `}</style>

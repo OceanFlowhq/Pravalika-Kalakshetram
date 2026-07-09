@@ -23,6 +23,105 @@ function GoldSectionDivider({ light = false }) {
   );
 }
 
+// ─── New lightweight heritage SVG components (no raster images, no new deps) ──
+function SanskritManuscriptTexture({ id, opacity = 0.04, style = {} }) {
+  return (
+    <svg width="100%" height="100%" style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0, ...style }} preserveAspectRatio="none">
+      <defs>
+        <pattern id={id} width="140" height="40" patternUnits="userSpaceOnUse">
+          <g fill="none" stroke="#D4A017" strokeWidth="1" opacity={opacity}>
+            <path d="M0 20 Q10 8 20 20 T40 20 T60 20 T80 20 T100 20 T120 20 T140 20" />
+            <line x1="0" y1="30" x2="140" y2="30" strokeWidth="0.5" strokeDasharray="2 6" />
+          </g>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill={`url(#${id})`} />
+    </svg>
+  );
+}
+
+function FloralHeritageMotif({ size = 60, opacity = 0.06, style = {}, flip = false }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 60 60" style={{ ...style, transform: flip ? 'scaleX(-1)' : undefined }}>
+      <g fill="none" stroke="#D4A017" strokeWidth="1" opacity={opacity}>
+        <path d="M5 55 Q15 35 10 15 Q20 20 25 10 Q30 22 40 15 Q38 28 50 25 Q40 35 45 50" />
+        <circle cx="10" cy="15" r="3" /><circle cx="25" cy="10" r="3" />
+        <circle cx="40" cy="15" r="3" /><circle cx="50" cy="25" r="3" />
+      </g>
+    </svg>
+  );
+}
+
+function VeenaLineArt({ width = 50, height = 190, opacity = 0.08, style = {} }) {
+  return (
+    <svg width={width} height={height} viewBox="0 0 60 220" style={style}>
+      <g fill="none" stroke="#D4A017" strokeWidth="1" opacity={opacity}>
+        <ellipse cx="30" cy="195" rx="22" ry="14" />
+        <line x1="30" y1="181" x2="30" y2="30" />
+        <ellipse cx="30" cy="20" rx="10" ry="8" />
+        <line x1="24" y1="40" x2="24" y2="181" />
+        <line x1="36" y1="40" x2="36" y2="181" />
+        {[...Array(8)].map((_, i) => (
+          <line key={i} x1="20" y1={50 + i * 16} x2="40" y2={50 + i * 16} strokeWidth="0.6" />
+        ))}
+      </g>
+    </svg>
+  );
+}
+
+function MridangamLineArt({ width = 130, height = 64, opacity = 0.07, style = {} }) {
+  return (
+    <svg width={width} height={height} viewBox="0 0 140 70" style={style}>
+      <g fill="none" stroke="#D4A017" strokeWidth="1" opacity={opacity}>
+        <path d="M20 15 Q70 5 120 15 L120 55 Q70 65 20 55 Z" />
+        <ellipse cx="20" cy="35" rx="8" ry="20" />
+        <ellipse cx="120" cy="35" rx="8" ry="20" />
+        {[...Array(6)].map((_, i) => (
+          <line key={i} x1={28 + i * 14} y1="15" x2={24 + i * 14} y2="55" strokeWidth="0.6" />
+        ))}
+      </g>
+    </svg>
+  );
+}
+
+function FluteLineArt({ width = 150, height = 22, opacity = 0.08, style = {} }) {
+  return (
+    <svg width={width} height={height} viewBox="0 0 160 24" style={style}>
+      <g fill="none" stroke="#D4A017" strokeWidth="1" opacity={opacity}>
+        <line x1="5" y1="12" x2="155" y2="12" strokeWidth="3" strokeLinecap="round" />
+        {[...Array(6)].map((_, i) => (
+          <circle key={i} cx={40 + i * 16} cy="12" r="1.6" fill="#D4A017" stroke="none" />
+        ))}
+      </g>
+    </svg>
+  );
+}
+
+function NattuvangamLineArt({ width = 64, height = 36, opacity = 0.08, style = {} }) {
+  return (
+    <svg width={width} height={height} viewBox="0 0 70 40" style={style}>
+      <g fill="none" stroke="#D4A017" strokeWidth="1" opacity={opacity}>
+        <circle cx="24" cy="20" r="16" /><circle cx="46" cy="20" r="16" />
+        <circle cx="24" cy="20" r="3" fill="#D4A017" stroke="none" />
+        <circle cx="46" cy="20" r="3" fill="#D4A017" stroke="none" />
+      </g>
+    </svg>
+  );
+}
+
+function FootprintsLineArt({ width = 80, height = 130, opacity = 0.06, style = {} }) {
+  return (
+    <svg width={width} height={height} viewBox="0 0 100 160" style={style}>
+      <g fill="#D4A017" opacity={opacity}>
+        <ellipse cx="30" cy="30" rx="14" ry="24" />
+        <circle cx="22" cy="8" r="3" /><circle cx="30" cy="5" r="3" /><circle cx="38" cy="6" r="3" /><circle cx="45" cy="10" r="2.5" />
+        <ellipse cx="70" cy="110" rx="14" ry="24" />
+        <circle cx="62" cy="88" r="3" /><circle cx="70" cy="85" r="3" /><circle cx="78" cy="86" r="3" /><circle cx="85" cy="90" r="2.5" />
+      </g>
+    </svg>
+  );
+}
+
 // ─── Hero Section — Fullscreen Video ─────────────────────────────────────────
 function HeroSection() {
   return (
@@ -148,23 +247,48 @@ function WhyChooseUs() {
       {/* Heritage pattern overlay */}
       <HeritagePatternBg color="#D4A017" opacity={0.04} />
 
-      {/* Left side — temple silhouette */}
-      <div style={{ position: 'absolute', left: '-20px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', zIndex: 0 }}>
-        <TempleSVG width={180} height={240} opacity={0.07} />
-      </div>
+      {/* Sanskrit manuscript texture wash */}
+      <SanskritManuscriptTexture id="sanskritTextureWhyChoose" opacity={0.035} />
 
-      {/* Right side — pravalika photo background */}
+      {/* Soft golden gradient — replaces removed photo */}
       <div style={{
-        position: 'absolute', top: 0, right: 0, width: '48%', height: '100%',
-        backgroundImage: 'url(/pravalika-why-choose-bg.png)',
-        backgroundSize: 'cover', backgroundPosition: 'center right',
-        opacity: 0.18, pointerEvents: 'none', zIndex: 0,
+        position: 'absolute', top: 0, right: 0, width: '50%', height: '100%',
+        background: 'radial-gradient(ellipse at 80% 50%, rgba(212,160,23,0.06) 0%, transparent 65%)',
+        pointerEvents: 'none', zIndex: 0,
       }} />
       <div style={{
         position: 'absolute', top: 0, left: 0, width: '55%', height: '100%',
         background: 'linear-gradient(to right, #F2E5C5 60%, transparent)',
         pointerEvents: 'none', zIndex: 0,
       }} />
+
+      {/* Left side — temple silhouette */}
+      <div style={{ position: 'absolute', left: '-20px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', zIndex: 0 }}>
+        <TempleSVG width={180} height={240} opacity={0.06} />
+      </div>
+
+      {/* Right side — large luxury gold mandala + temple line art (replaces woman sketch) */}
+      <div style={{ position: 'absolute', top: '50%', right: '-60px', transform: 'translateY(-50%)', pointerEvents: 'none', zIndex: 0 }}>
+        <MandalaSVG size={460} opacity={0.06} className="mandala-spin" />
+      </div>
+      <div style={{ position: 'absolute', bottom: '-30px', right: '4%', pointerEvents: 'none', zIndex: 0 }}>
+        <TempleSVG width={200} height={260} opacity={0.05} />
+      </div>
+
+      {/* Lotus motifs */}
+      <div style={{ position: 'absolute', top: '12%', right: '18%', pointerEvents: 'none', zIndex: 0 }}>
+        <LotusSVG size={36} opacity={0.07} />
+      </div>
+      <div style={{ position: 'absolute', bottom: '15%', right: '30%', pointerEvents: 'none', zIndex: 0 }}>
+        <LotusSVG size={26} opacity={0.05} />
+      </div>
+
+      {/* Traditional floral heritage motifs */}
+      <FloralHeritageMotif size={70} opacity={0.06} style={{ position: 'absolute', bottom: '2rem', right: '2rem', pointerEvents: 'none', zIndex: 0 }} />
+      <FloralHeritageMotif size={55} opacity={0.05} flip style={{ position: 'absolute', top: '8rem', right: '10%', pointerEvents: 'none', zIndex: 0 }} />
+
+      {/* Very subtle floating gold particles */}
+      <FloatingParticles count={8} color="rgba(212,160,23," />
 
       {/* Corner ornaments */}
       <CornerOrnamentSVG size={90} opacity={0.15} style={{ position: 'absolute', top: '1.5rem', left: '1.5rem', pointerEvents: 'none', zIndex: 0 }} />
@@ -295,8 +419,12 @@ function SpiritSection() {
     <section className="heritage-section-dark" style={{ padding: '8rem 0', position: 'relative', overflow: 'hidden', textAlign: 'center' }}>
       <HeritagePatternBg color="#D4A017" opacity={0.025} />
 
-      {/* Pravalika background portrait */}
-      <div style={{ position: 'absolute', top: 0, right: 0, width: '45%', height: '100%', backgroundImage: 'url(/pravalika-heritage-home.png)', backgroundSize: 'cover', backgroundPosition: 'center right', opacity: 0.17, pointerEvents: 'none', zIndex: 0 }} />
+      {/* Sanskrit manuscript texture — cinematic wash */}
+      <SanskritManuscriptTexture id="sanskritTextureSpirit" opacity={0.04} />
+
+      {/* Light smoky gradients — replaces removed portrait */}
+      <div style={{ position: 'absolute', top: 0, right: 0, width: '55%', height: '100%', background: 'radial-gradient(ellipse at 85% 40%, rgba(212,160,23,0.05) 0%, transparent 60%)', pointerEvents: 'none', zIndex: 0 }} />
+      <div style={{ position: 'absolute', top: 0, left: 0, width: '50%', height: '100%', background: 'radial-gradient(ellipse at 10% 60%, rgba(212,160,23,0.04) 0%, transparent 60%)', pointerEvents: 'none', zIndex: 0 }} />
 
       {/* Large background mandala */}
       <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', pointerEvents: 'none', zIndex: 0 }}>
@@ -307,12 +435,38 @@ function SpiritSection() {
         <MandalaSVG size={280} opacity={0.06} className="mandala-spin-reverse" />
       </div>
 
-      {/* Dancer silhouettes on sides */}
-      <div style={{ position: 'absolute', left: '2rem', bottom: 0, pointerEvents: 'none', zIndex: 0 }}>
-        <DancerSilhouetteSVG width={90} height={160} opacity={0.1} />
+      {/* Musical instrument line art — edges only, never overlapping the text column */}
+      <div style={{ position: 'absolute', left: '4%', top: '18%', pointerEvents: 'none', zIndex: 0 }}>
+        <VeenaLineArt width={50} height={190} opacity={0.08} />
+      </div>
+      <div style={{ position: 'absolute', right: '4%', top: '15%', pointerEvents: 'none', zIndex: 0 }}>
+        <FluteLineArt width={150} height={22} opacity={0.08} style={{ transform: 'rotate(-18deg)' }} />
+      </div>
+      <div style={{ position: 'absolute', left: '6%', bottom: '20%', pointerEvents: 'none', zIndex: 0 }}>
+        <MridangamLineArt width={130} height={64} opacity={0.07} />
+      </div>
+      <div style={{ position: 'absolute', right: '6%', bottom: '22%', pointerEvents: 'none', zIndex: 0 }}>
+        <NattuvangamLineArt width={64} height={36} opacity={0.08} />
       </div>
 
-      {/* Floating particles */}
+      {/* Kuchipudi footprints, near bottom center */}
+      <div style={{ position: 'absolute', left: '50%', bottom: '4%', transform: 'translateX(-50%)', pointerEvents: 'none', zIndex: 0 }}>
+        <FootprintsLineArt width={80} height={130} opacity={0.06} />
+      </div>
+
+      {/* Temple silhouettes near the bottom */}
+      <div style={{ position: 'absolute', left: '-30px', bottom: '-10px', pointerEvents: 'none', zIndex: 0 }}>
+        <TempleSVG width={160} height={200} opacity={0.06} />
+      </div>
+      <div style={{ position: 'absolute', right: '-30px', bottom: '-10px', pointerEvents: 'none', zIndex: 0, transform: 'scaleX(-1)' }}>
+        <TempleSVG width={160} height={200} opacity={0.06} />
+      </div>
+
+      {/* Decorative ornamental borders */}
+      <CornerOrnamentSVG size={80} opacity={0.08} style={{ position: 'absolute', top: '1.5rem', left: '1.5rem', pointerEvents: 'none', zIndex: 0 }} />
+      <CornerOrnamentSVG size={80} opacity={0.08} flip style={{ position: 'absolute', top: '1.5rem', right: '1.5rem', pointerEvents: 'none', zIndex: 0 }} />
+
+      {/* Soft golden dust particles */}
       <FloatingParticles count={12} color="rgba(212,160,23," />
 
       <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 2rem', position: 'relative', zIndex: 1 }}>
