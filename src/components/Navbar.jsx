@@ -287,8 +287,8 @@ export default function Navbar() {
     flex-shrink: 0 !important;
   }
   .nav-logo{
-    height: 60px !important;
-    max-height: 60px !important;
+    height: 120px !important;
+    max-height: 120px !important;
     width: auto !important;
     object-fit: contain !important;
     flex-shrink: 0 !important;
@@ -299,12 +299,12 @@ export default function Navbar() {
 @media (max-width:480px){
   .navbar-container{
     height: 84px !important;
-    padding-left:4px !important;
+    padding-left:2px !important;
     padding-right:10px !important;
   }
   .nav-logo{
-    height: 52px !important;
-    max-height: 52px !important;
+    height: 120px !important;
+    max-height: 120px !important;
   }
 }
 
@@ -314,7 +314,7 @@ export default function Navbar() {
     padding-left:1px !important;
   }
   .nav-logo{
-    height: 100px !important;
+    height: 120px !important;
     max-height: 120px !important;
   }
 }
