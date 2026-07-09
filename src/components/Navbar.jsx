@@ -54,7 +54,7 @@ export default function Navbar() {
             transition: 'height 0.4s ease',
           }}>
           {/* Logo */}
-          <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', flexShrink: 0, height: '100%', padding: '0.4rem 0' }}>
+          <Link to="/" className="nav-logo-link" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', flexShrink: 0, height: '100%', padding: '0.4rem 0' }}>
             <img src={logoImg} alt="Pravalika Kuchipudi Kalakshetram Logo" className="nav-logo" style={{ width: 'auto', objectFit: 'contain', display: 'block', mixBlendMode: 'multiply', transform: 'scale(2.6)', transformOrigin: 'left center' }} />
           </Link>
 
@@ -275,52 +275,45 @@ export default function Navbar() {
 }
 
 @media (max-width: 900px) {
-
   .navbar-container{
+    height: 84px !important;
     padding-left:8px !important;
     padding-right:12px !important;
   }
-
-  .hidden-mobile{
-    display:none !important;
+  .hidden-mobile{ display:none !important; }
+  .show-mobile{ display:flex !important; align-items:center; justify-content:center; z-index:10; }
+  .nav-logo-link{
+    height: 100% !important;
   }
-
-  .show-mobile{
-    display:flex !important;
-    align-items:center;
-    justify-content:center;
-    z-index:10;
-  }
-
   .nav-logo{
-    max-height:44px;
-    transform:scale(2.0) !important;
-    transform-origin:left center !important;
+    height: 50px;
+    max-height: 50px;
+    width: auto;
+    object-fit: contain;
+    transform: none !important;
   }
 }
 
 @media (max-width:480px){
-
   .navbar-container{
+    height: 76px !important;
     padding-left:4px !important;
     padding-right:10px !important;
   }
-
   .nav-logo{
-    max-height:40px;
-    transform:scale(1.9) !important;
+    height: 44px;
+    max-height: 44px;
   }
 }
 
 @media (max-width:360px){
-
   .navbar-container{
+    height: 68px !important;
     padding-left:2px !important;
   }
-
   .nav-logo{
-    max-height:36px;
-    transform:scale(3.7) !important;
+    height: 40px;
+    max-height: 40px;
   }
 }
       `}</style>
