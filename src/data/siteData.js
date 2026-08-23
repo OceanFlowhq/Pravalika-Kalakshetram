@@ -8,7 +8,7 @@ export const SITE = {
   phone: '+91 7993870126',
   email: 'pravalikakuppili08@gmail.com',
   address: {
-    flat: 'FLAT NO 68, SIXTH FLOOR',
+    flat: 'FLAT NO 6B, SIXTH FLOOR',
     building: 'GENIOUS ELITE',
     locality: 'SOUTHERN BLOCK RAIDURG NAVKHALSA VILLAGE',
     landmark: 'NEAR MALKAM CHERUVU',
@@ -132,23 +132,15 @@ export const GALLERY_IMAGES = [
 
 export const FEATURED_VIDEOS = [
   {
-    id: 'dwepzVxQdUw',
-    title: 'Tarangam — A Kuchipudi Masterpiece',
-    views: '12K views',
+    id: 'C7Jgy94ZZw0',
+    title: 'Kuchipudi Performance', // placeholder — update with exact title later
+    views: 'Watch on YouTube',
   },
   {
-    id: '_yG75mxbeFw',
-    title: 'Varnam in Ragamalika',
-    views: '8.5K views',
+    id: 'qWvC84ehIYE',
+    title: 'Kuchipudi Performance', // placeholder — update with exact title later
+    views: 'Watch on YouTube',
   },
-  {
-    id: 'pVICo5mMeVs',
-    title: 'Pushpanjali — Opening Invocation',
-    views: '15K views',
-  },
-  {
-    id: 'Pkcoe1b9nGY',
-    title: 'Ashtapadi — Jayadeva\'s Verses',
-    views: '6K views',
-  },
+  // Add future videos here, e.g.:
+  // { id: 'NEW_VIDEO_ID', title: 'Video Title', views: 'Description or metadata' },
 ];

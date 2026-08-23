@@ -175,7 +175,7 @@ export default function Footer() {
               }}>
                 <FaMapMarkerAlt style={{ marginTop: '3px', color: '#D4A017', flexShrink: 0 }} />
                 <span>
-                  FLAT NO 68, SIXTH FLOOR,<br />
+                  FLAT NO 6B, SIXTH FLOOR,<br />
                   GENIOUS ELITE, SOUTHERN BLOCK<br />
                   RAIDURG NAVKHALSA VILLAGE,<br />
                   NEAR MALKAM CHERUVU,<br />

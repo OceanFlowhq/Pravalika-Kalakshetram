@@ -148,7 +148,7 @@ Email:
 
 Location:
 
-Flat No. 68, Sixth Floor,
+Flat No. 6B, Sixth Floor,
 Genious Elite,
 Southern Block Raidurg Navkhalsa Village,
 Near Malkam Cheruvu,

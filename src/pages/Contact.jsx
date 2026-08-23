@@ -246,7 +246,7 @@ Official Academy Website
                 <div>
                   <p style={{ fontFamily: 'var(--font-cinzel)', fontSize: '0.6rem', letterSpacing: '0.15em', color: 'var(--gold)', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Address</p>
                   <address style={{ fontFamily: 'var(--font-body)', fontSize: '0.875rem', lineHeight: 1.9, color: 'var(--secondary)', fontStyle: 'normal' }}>
-                    FLAT NO 68, SIXTH FLOOR,<br />
+                    FLAT NO 6B, SIXTH FLOOR,<br />
                     GENIOUS ELITE,<br />
                     SOUTHERN BLOCK RAIDURG NAVKHALSA VILLAGE,<br />
                     NEAR MALKAM CHERUVU,<br />
