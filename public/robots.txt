@@ -1,0 +1,5 @@
+
+User-agent: *
+Allow: /
+
+Sitemap: https://pravalikakuchipudikalakshetram.com/sitemap.xml
