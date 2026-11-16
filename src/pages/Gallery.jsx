@@ -21,7 +21,7 @@ import img10 from '../assets/img10.jpeg';
 import img11 from '../assets/img11.jpeg';
 import img12 from '../assets/img12.jpeg';
 import img13 from '../assets/img13.jpeg';
-import img14 from '../assets/img14.jpeg';
+import img14 from '../assets/img14.png';
 import img15 from '../assets/img15.jpeg';
 import img16 from '../assets/img16.jpeg';
 import img17 from '../assets/img17.jpeg';

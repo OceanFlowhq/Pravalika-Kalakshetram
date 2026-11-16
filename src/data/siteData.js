@@ -5,7 +5,7 @@ export const SITE = {
   nameShort: 'PKK',
   tagline: 'Where Tradition Meets Expression',
   founder: 'Guru Pravalika Kuppili',
-  phone: '+91 7993870126',
+  phone: '+91 7330677471',
   email: 'pravalikakuppili08@gmail.com',
   address: {
     flat: 'FLAT NO 6B, SIXTH FLOOR',
